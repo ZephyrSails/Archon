@@ -52,3 +52,5 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'mechanize'
 
 gem 'config'
+
+gem 'thin'
