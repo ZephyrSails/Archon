@@ -31,6 +31,7 @@ module Journalist
   end
 
   def Journalist.record_espionage(message, position, moon)
+    puts "[Journalist]report planet at #{position}"
     # puts message
     is_moon = false
     is_moon = true if message.search("figure.moon").to_s != ""
@@ -48,13 +49,13 @@ module Journalist
       case i
       when 0
         metal = get_number(m.text.split(":")[1])
-        puts "metal #{metal}"
+        puts "--metal #{metal}"
       when 1
         crystal = get_number(m.text.split(":")[1])
-        puts "crystal #{crystal}"
+        puts "--crystal #{crystal}"
       when 2
         deuterium = get_number(m.text.split(":")[1])
-        puts "deuterium #{deuterium}"
+        puts "--deuterium #{deuterium}"
       end
     end
 
@@ -70,19 +71,19 @@ module Journalist
       case s.text.split(":")[0]
       when "Activity"
         activity =  s.text.split(":")[1]
-        puts "activity #{activity}"
+        puts "--activity #{activity}"
       when "Resources"
         resource_sum =  get_number(s.text.split(":")[1])
-        puts "resource_sum #{resource_sum}"
+        puts "--resource_sum #{resource_sum}"
       when "Loot"
         loot = get_number(s.text.split(":")[1])
-        puts "loot #{loot}"
+        puts "--loot #{loot}"
       when "Fleets"
         fleets_value = get_number(s.text.split(":")[1])
-        puts "fleets_value #{fleets_value}"
+        puts "--fleets_value #{fleets_value}"
       when "Defence"
         defence_value = get_number(s.text.split(":")[1])
-        puts "defence_value #{defence_value}"
+        puts "--defence_value #{defence_value}"
       end
     end
 
@@ -90,7 +91,7 @@ module Journalist
       case s.text.split(":")[0]
       when "Chance of counter-espionage"
         counter_espionage = get_number(s.text.split(":")[1])
-        puts "counter_espionage #{counter_espionage}"
+        puts "--counter_espionage #{counter_espionage}"
       end
     end
 
@@ -102,8 +103,6 @@ module Journalist
     elsif defence_value != Settings.unknow
       planet.defence_value = defence_value
     end
-
-
 
     planet.resource_sum = resource_sum
     planet.resource_value = metal + crystal * 1.5 + deuterium * 3.0
