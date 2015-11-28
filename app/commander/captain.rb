@@ -15,11 +15,10 @@ module Captain
   # $PLANET_I = Archivist.get_planet_i_from(1)
   # positions = Archivist.get_positions(Archivist.options_close_idle_unknow)
   # GeneralHelper.get_agent
-  def Captain.spy_i_on(positions)
+  def Captain.spy_i_on(positions, number)
     positions.each_with_index do |to, index|
       begin
         from = "1:410:4"
-        number = 1
         puts "sending spy to #{to.position}, #{index} finished"
         Captain.send_spy(from, to.position, number)
         sleep 5
