@@ -32,17 +32,17 @@ module Commander
 
     Settings.reload!
     config.after_initialize do
-      Captain.one_order_loot
 
-      # if ENV['server_mode']
-      #
-      #   # $update = Thread.new do
-      #   #   Captain.one_order_spy
-      #   #   Captain.one_order_deep_spy
-      #   #   Captain.one_order_loot
-      #   # end
-      #
-      # end
+      if ENV['server_mode']
+        Captain.one_order_loot
+
+        # $update = Thread.new do
+        #   Captain.one_order_spy
+        #   Captain.one_order_deep_spy
+        #   Captain.one_order_loot
+        # end
+
+      end
     end
 
     config.active_record.raise_in_transactional_callbacks = true
