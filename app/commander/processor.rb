@@ -21,6 +21,7 @@ class Processor
         end
       rescue Exception => e
         puts e.backtrace.join("\n")
+        GeneralHelper.get_agent
       end
 
       sleep 2
