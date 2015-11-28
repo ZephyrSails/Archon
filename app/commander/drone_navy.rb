@@ -37,7 +37,12 @@ module DroneNavy
 
     rescue
       retry_time -= 1
-      retry if retry_time > 0
+      if retry_time > 0
+        retry
+      else
+        GeneralHelper.get_agent
+        retry
+      end
     end
   end
 

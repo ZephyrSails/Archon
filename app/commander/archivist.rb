@@ -31,6 +31,7 @@ module Archivist
     return positions
   end
 
+  # positions = Archivist.get_positions(Archivist.options_light_spy)
   def Archivist.options_light_spy()
     options = {
       is_idle?: [true],
