@@ -35,7 +35,8 @@ module Archivist
   def Archivist.options_light_spy()
     options = {
       is_idle?: [true],
-      is_less_flight_time?: [true, "1:410:4", 12000, 3000]
+      is_less_flight_time?: [true, "1:410:4", 12000, 3000],
+      is_defence_unknow?: [true]
     }
   end
 
