@@ -1,0 +1,58 @@
+apis:
+  players: "http://s131-en.ogame.gameforge.com/api/players.xml"
+  player: "http://s131-en.ogame.gameforge.com/api/playerData.xml?id="
+  planets: "http://s131-en.ogame.gameforge.com/api/universe.xml"
+  rank: "http://s131-en.ogame.gameforge.com/api/highscore.xml?category=1&type=1"
+  rank_all: "http://s131-en.ogame.gameforge.com/api/highscore.xml"
+  alliances: "http://s131-en.ogame.gameforge.com/api/alliances.xml"
+  server: "http://s131-en.ogame.gameforge.com/api/serverData.xml"
+
+score_type:
+  0: "score"
+  1: "score_economy"
+  2: "score_research"
+  3: "score_military"
+  4: "score_military_lost"
+  5: "score_military_build"
+  6: "score_military_destroyed"
+  7: "honor_point"
+
+fleets:
+  am202: "small_cargo"
+  am203: "large_cargo"
+  am204: "light_fighter"
+  am205: "heavy_fighter"
+  am206: "cruiser"
+  am207: "battleship"
+  am208: "colony_ship"
+  am209: "recycler"
+  am210: "espionage_probe"
+  am211: "bomber"
+  am213: "destroyer"
+  am214: "death_star"
+  am215: "battlecruiser"
+
+missions:
+  expedition:           15
+  colonisation:         7
+  recycle_debris_field: 8
+  transport:            3
+  deployment:           4
+  espionage:            6
+  acs_defend:           5
+  attack:               1
+  acs_attack:           2
+  moon_destruction:     9
+
+messages_tab:
+  espionage: 20
+  combat: 21
+  expedition: 22
+  union: 23
+  other: 24
+
+s131:
+  pages:
+    messages: "http://s131-en.ogame.gameforge.com/game/index.php?page=messages"
+
+unknow: null
