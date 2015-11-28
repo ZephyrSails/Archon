@@ -20,7 +20,8 @@ module Captain
     return_time = single_flight_time * 2
     Processor.instance.add_schdule("Journalist.report_newest_message(#{to}, espionage)", single_flight_time)
 
-    Processor.instance.add_schdule("General.remove_fleet(#{fleet_id})", return_time)
+    # TODO Fleet management
+    # Processor.instance.add_schdule("General.remove_fleet(#{fleet_id})", return_time)
   end
 
   # $PLANET_I = Archivist.get_planet_i_from(1)
