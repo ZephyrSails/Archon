@@ -54,3 +54,5 @@ gem 'mechanize'
 gem 'config'
 
 gem 'thin'
+
+gem 'whenever', :require => false

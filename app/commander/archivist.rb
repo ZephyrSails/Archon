@@ -44,7 +44,7 @@ module Archivist
     options = {
       is_idle?: [true],
       is_less_flight_time?: [true, "1:410:4"],
-      is_safe_to_espionage?: [true],
+      is_safe_to_espionage?: [true]
     }
   end
 
@@ -61,7 +61,8 @@ module Archivist
     options = {
       is_idle?: [true],
       is_less_flight_time?: [true, "1:410:4", 12000, 3000],
-      is_safe?: [true]
+      is_safe?: [true],
+      has_more_economy_score?: [true]
     }
   end
 

@@ -36,6 +36,16 @@ class Planet < ActiveRecord::Base
     return false
   end
 
+  def has_more_economy_score?(score = 100)
+    begin
+      return true if self.empire.score_economy.to_i > score
+    rescue
+      return false
+    end
+    return false
+
+  end
+
   def is_less_flight_time?(position, speed = 12000, second = 2700)
     if Abacus.get_time(self.position, position, speed) < second
       return true
@@ -53,7 +63,7 @@ class Planet < ActiveRecord::Base
   end
 
   def need_large_cargo
-    return (((self.loot / 100.0) * self.resource_value ) / 25000).round
+    return (((self.loot / 100.0) * self.resource_sum ) / 25000).round
   end
 
   def is_safe_to_espionage?
