@@ -20,6 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 
 # whenever --update-crontab
+# whenever --update-crontab --set environment='development'
 # crontab -l
 set :output, "/home/zephyr/code/Archon/cron_log.log"
 every 2.hours do

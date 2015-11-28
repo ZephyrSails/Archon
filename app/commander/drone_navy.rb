@@ -40,7 +40,7 @@ module DroneNavy
       if retry_time > 0
         retry
       else
-        GeneralHelper.get_agent
+        raise
         retry
       end
     end
