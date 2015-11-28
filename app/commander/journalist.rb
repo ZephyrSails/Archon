@@ -33,7 +33,12 @@ module Journalist
   end
 
   def Journalist.get_number(number)
-    number.gsub(".", "").gsub("M", "000000").gsub("%", "").to_i
+    if number.include? "M"
+      number.gsub("M", "").to_f
+      return number * 1000000
+    else
+      return number.gsub(".", "").gsub("%", "").to_i
+    end
   end
 
   def Journalist.record_espionage(message, position)
