@@ -12,10 +12,17 @@ module Captain
     Captain.large_cargo_loot(positions)
   end
 
+  # rails runner "Captain.one_order_spy"
   def Captain.one_order_spy
     GeneralHelper.get_agent
     positions = Archivist.get_positions(Archivist.options_light_spy)
     Captain.spy_i_on(positions, 1, 2)
+  end
+
+  def Captain.one_order_deep_spy
+    GeneralHelper.get_agent
+    positions = Archivist.get_positions(Archivist.options_close_idle_unknow)
+    Captain.spy_i_on(positions, 19, 20)
   end
 
 

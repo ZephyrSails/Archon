@@ -51,7 +51,7 @@ module Archivist
   def Archivist.options_close_idle_unknow()
     options = {
       is_idle?: [true],
-      is_less_flight_time?: [true, "1:410:4"],
+      is_less_flight_time?: [true, "1:410:4", 12000, 3000],
       is_safe_to_espionage?: [true],
       is_defence_unknow?: [true]
     }
@@ -60,7 +60,7 @@ module Archivist
   def Archivist.options_close_idle_safe()
     options = {
       is_idle?: [true],
-      is_less_flight_time?: [true, "1:410:4"],
+      is_less_flight_time?: [true, "1:410:4", 12000, 3000],
       is_safe?: [true]
     }
   end
