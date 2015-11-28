@@ -19,9 +19,15 @@ module Journalist
       message_page.search("span.msg_title").each do |r|
         message = r.parent.parent
 
-        Journalist.record_espionage(message, position, moon)
+        is_moon = false
+        is_moon = true if message.search("figure.moon").to_s != ""
 
-        # return true if found_it == true
+        found_it = true if position == message.search("a.txt_link").first.text[/\[(.*?)\]/, 1] and moon == is_moon
+
+        if found_it
+          Journalist.record_espionage(message, position)
+          return
+        end
       end
     end
   end
@@ -30,15 +36,10 @@ module Journalist
     number.gsub(".", "").gsub("M", "000000").gsub("%", "").to_i
   end
 
-  def Journalist.record_espionage(message, position, moon)
+  def Journalist.record_espionage(message, position)
     puts "[Journalist]report planet at #{position}"
     # puts message
-    is_moon = false
-    is_moon = true if message.search("figure.moon").to_s != ""
-    if position != message.search("a.txt_link").first.text[/\[(.*?)\]/, 1] or moon != is_moon
-      return
-    else found_it = true
-    end
+
 
     metal = Settings.unknow
     crystal = Settings.unknow
