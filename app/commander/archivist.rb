@@ -31,6 +31,13 @@ module Archivist
     return positions
   end
 
+  def Archivist.options_light_spy()
+    options = {
+      is_idle?: [true],
+      is_less_flight_time?: [true, "1:410:4", 12000, 3000]
+    }
+  end
+
   def Archivist.options_close_idle()
     options = {
       is_idle?: [true],
