@@ -15,7 +15,7 @@ module DroneNavy
       ship_choosen_form.field_with(:name => "system").value = from.split(":")[1].to_i
       ship_choosen_form.field_with(:name => "position").value = from.split(":")[2].to_i
       ship_choosen_form.field_with(:name => "speed").value = speed
-      puts "[DroneNavy], sending fleet, process 1 complished"
+      puts "--[DroneNavy], sending fleet, process 1 complished"
 
       fleet2_page = $AGENT.submit ship_choosen_form
       sleep 1
@@ -24,7 +24,7 @@ module DroneNavy
       details_form.field_with(:name => "galaxy").value = to.split(":")[0].to_i
       details_form.field_with(:name => "system").value = to.split(":")[1].to_i
       details_form.field_with(:name => "position").value = to.split(":")[2].to_i
-      puts "[DroneNavy], sending fleet, process 2 complished"
+      puts "--[DroneNavy], sending fleet, process 2 complished"
 
       fleet3_page = $AGENT.submit details_form
       sleep 1
@@ -32,14 +32,18 @@ module DroneNavy
       sending_form.field_with(:name => "metal").value = cargo[0]
       sending_form.field_with(:name => "crystal").value = cargo[1]
       sending_form.field_with(:name => "deuterium").value = cargo[2]
-      puts "[DroneNavy], sending fleet, process 3 complished"
+      puts "--[DroneNavy], sending fleet, process 3 complished"
       final_page = $AGENT.submit sending_form
 
+      puts "--[DroneNavy], fleet sent successful"
+      return true
     rescue
       retry_time -= 1
       if retry_time > 0
+        puts "--[DroneNavy], something went wrong, retry #{retry_time} times"
         retry
       else
+        puts "--[DroneNavy], no retry_time left, relogin"
         raise
         retry
       end
