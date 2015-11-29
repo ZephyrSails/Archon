@@ -34,10 +34,10 @@ module Journalist
 
   def Journalist.get_number(number)
     if number.include? "M"
-      number.gsub("M", "").to_f
-      return number * 1000000
+
+      return (number.gsub(" ", "").gsub("M", "").to_f * 1000000).to_i
     else
-      return number.gsub(".", "").gsub("%", "").to_i
+      return number.gsub(".", "").gsub("%", "").gsub(" ", "").to_i
     end
   end
 
