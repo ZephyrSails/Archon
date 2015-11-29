@@ -6,6 +6,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Resource.create(name: "metal")
-Resource.create(name: "crystal")
-Resource.create(name: "deuterium")
+Mode.create(name: "large_cargo_raid", value: 1)
