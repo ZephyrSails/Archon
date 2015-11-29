@@ -12,7 +12,7 @@ module Captain
           puts "#{DateTime.now}, Captain.one_order_loot begin"
           GeneralHelper.get_agent
         rescue
-          sleep 1
+          sleep 0.5
           retry
         end
 
@@ -28,7 +28,7 @@ module Captain
 
         positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
         Captain.large_cargo_loot(positions)
-        sleep 1
+        sleep 0.5
 
       end
     rescue Exception => e

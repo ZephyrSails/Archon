@@ -14,7 +14,7 @@ module Journalist
     page_count = message_page.search("li.curPage").text.split("/")[1].to_i
 
     found_it = false
-    for i in 1..3
+    for i in 1..7
       message_page = Journalist.to_page(type, i)
       message_page.search("span.msg_title").each do |r|
         message = r.parent.parent
@@ -29,6 +29,7 @@ module Journalist
           return true
         end
       end
+      puts "[Journalist] page #{i}, didn't found"
     end
     return false
   end

@@ -5,7 +5,7 @@ module DroneNavy
     begin
       puts "[DroneNavy] begin to send_fleet to #{to}"
       fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
-      sleep 1
+      sleep 0.5
       ship_choosen_form = fleet1_page.form_with :name => "shipsChosen"
       for i in 202..215
         next if i == 212
@@ -18,7 +18,7 @@ module DroneNavy
       puts "--[DroneNavy], sending fleet, process 1 complished"
 
       fleet2_page = $AGENT.submit ship_choosen_form
-      sleep 1
+      sleep 0.5
       details_form = fleet2_page.form_with :name => "details"
       details_form.field_with(:name => "mission").value = Settings.missions[mission]
       details_form.field_with(:name => "galaxy").value = to.split(":")[0].to_i
@@ -27,7 +27,7 @@ module DroneNavy
       puts "--[DroneNavy], sending fleet, process 2 complished"
 
       fleet3_page = $AGENT.submit details_form
-      sleep 1
+      sleep 0.5
       sending_form = fleet3_page.form_with :name => "sendForm"
       sending_form.field_with(:name => "metal").value = cargo[0]
       sending_form.field_with(:name => "crystal").value = cargo[1]
