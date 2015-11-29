@@ -15,15 +15,20 @@ module Captain
         retry
       end
 
-      Processor.instance.start
-
       positions = Archivist.get_positions(Archivist.options_close_idle_safe)
-      Captain.spy_i_on(positions)
+      Processor.instance.start
+      Captain.spy_i_on(positions, 1, 2)
+
+      while Schdule.all == []
+        sleep 10
+      end
+
+      Processor.instance.stop
+      
       positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
       Captain.large_cargo_loot(positions)
+      sleep 1
 
-      sleep 60
-      Processor.instance.stop
     end
   end
 

@@ -85,7 +85,12 @@ module Archivist
       has_more_economy_score?: [true, eco_score]
     }
   end
+  # options = Archivist.options_idle(duration=3000, speed=12000, eco_score=100, from="1:410:4")
+  # options[:is_safe_to_espionage?] = [true]
   # positions = Archivist.get_positions(Archivist.optins_idle_gala)
+  # Processor.instance.start
+  # Captain.spy_i_on(positions, 1, 7)
+  # Processor.instance.stop
 
   def Archivist.get_best_target(count = 10)
     Archivist.get_positions(Archivist.options_close_idle_safe)[0..(count-1)]
