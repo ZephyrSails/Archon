@@ -5,11 +5,19 @@ module Captain
   end
 
   def Captain.one_order_loot
-    GeneralHelper.get_agent
-    positions = Archivist.get_positions(Archivist.options_close_idle_safe)
-    Captain.spy_i_on(positions)
-    positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
-    Captain.large_cargo_loot(positions)
+    if Mode.find_by(name: "large_cargo_raid") == 1
+      begin
+        puts "#{DateTime.now}, Captain.one_order_loot begin" 
+        GeneralHelper.get_agent
+      rescue
+        sleep 1
+        retry
+      end
+      positions = Archivist.get_positions(Archivist.options_close_idle_safe)
+      Captain.spy_i_on(positions)
+      positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
+      Captain.large_cargo_loot(positions)
+    end
   end
 
   # rails runner "Captain.one_order_spy"

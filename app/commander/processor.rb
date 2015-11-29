@@ -1,32 +1,38 @@
 class Processor
   include Singleton
+  Processor.instance.$processer
+  def create_thread
+    $processer = Thread.new do
 
-  $processer = Thread.new do
+      $processer.kill
 
-    while true
 
-      # puts 1
+      while true
 
-      begin
-        mission = (Schdule.all.sort_by &:launch_time).first
-        if mission and DateTime.now > mission.launch_time
+        # puts 1
 
-          # mission.
-          params = mission.get_params
-          mod = mission.get_module_name
-          func = mission.get_func_name
-          mission.delete
+        begin
+          mission = (Schdule.all.sort_by &:launch_time).first
+          if mission and DateTime.now > mission.launch_time
 
-          Object.const_get(mod).send(func, *params)
+            # mission.
+            params = mission.get_params
+            mod = mission.get_module_name
+            func = mission.get_func_name
+            mission.delete
+
+            Object.const_get(mod).send(func, *params)
+          end
+        rescue Exception => e
+          puts e.backtrace.join("\n")
+          GeneralHelper.get_agent
         end
-      rescue Exception => e
-        puts e.backtrace.join("\n")
-        GeneralHelper.get_agent
+
+        sleep 2
+
+        # puts 1
       end
 
-      sleep 2
-
-      # puts 1
     end
 
   end
