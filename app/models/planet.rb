@@ -63,7 +63,7 @@ class Planet < ActiveRecord::Base
   end
 
   def need_large_cargo
-    return (((self.loot / 100.0) * self.resource_sum ) / 25000).round
+    return ((((self.loot / 100.0) * self.resource_sum ) / 25000).round) + 1
   end
 
   def is_safe_to_espionage?
