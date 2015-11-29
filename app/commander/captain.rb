@@ -58,7 +58,7 @@ module Captain
   def Captain.spy_i_on(positions, number = 1, interval = 5)
     positions.each_with_index do |to, index|
       begin
-        from = "1:410:4"
+        from = "1:216:7"
         puts "sending spy to #{to.position}, #{index} finished, #{positions.count} left"
         Captain.send_spy(from, to.position, number)
         sleep interval
@@ -86,7 +86,7 @@ module Captain
   def Captain.large_cargo_loot(positions)
     positions.each_with_index do |to, index|
       begin
-        from = "1:410:4"
+        from = "1:216:7"
         fleet = Fleet.new
         fleet.large_cargo = to.need_large_cargo
 

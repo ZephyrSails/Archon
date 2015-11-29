@@ -10,6 +10,8 @@ module GeneralHelper
     login_form.field_with(:name => "pass").value = empire.pass
     login_form.field_with(:name => "uni").value = "#{empire.galaxy.code}.ogame.gameforge.com"
     login_result = $AGENT.submit login_form
+    $AGENT.open_timeout = 7
+    $AGENT.read_timeout = 7
     puts "login success"
   end
 end
