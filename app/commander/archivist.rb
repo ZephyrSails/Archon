@@ -76,7 +76,7 @@ module Archivist
     }
   end
 
-  def Archivist.optins_idle_gala(galaxy = "1")
+  def Archivist.optins_idle_gala(galaxy = "1", eco_score = 100)
     options = {
       is_idle?: [true],
       get_galaxy: [galaxy],
@@ -85,7 +85,7 @@ module Archivist
       has_more_economy_score?: [true, eco_score]
     }
   end
-
+  # positions = Archivist.get_positions(Archivist.optins_idle_gala)
 
   def Archivist.get_best_target(count = 10)
     Archivist.get_positions(Archivist.options_close_idle_safe)[0..(count-1)]
