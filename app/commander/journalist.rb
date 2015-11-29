@@ -73,7 +73,6 @@ module Journalist
     activity = Settings.unknow
 
     message.search("span.ctn.ctn4").each do |s|
-      puts s.text
       case s.text.split(":")[0]
       when "Activity"
         activity =  s.text.split(":")[1]

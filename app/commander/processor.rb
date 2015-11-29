@@ -1,41 +1,59 @@
 class Processor
   include Singleton
-  Processor.instance.$processer
-  def create_thread
-    $processer = Thread.new do
+  # Processor.instance.$processer
 
-      $processer.kill
-
-
-      while true
-
-        # puts 1
-
-        begin
-          mission = (Schdule.all.sort_by &:launch_time).first
-          if mission and DateTime.now > mission.launch_time
-
-            # mission.
-            params = mission.get_params
-            mod = mission.get_module_name
-            func = mission.get_func_name
-            mission.delete
-
-            Object.const_get(mod).send(func, *params)
-          end
-        rescue Exception => e
-          puts e.backtrace.join("\n")
-          GeneralHelper.get_agent
-        end
-
-        sleep 2
-
-        # puts 1
-      end
-
+  @@processor = nil
+  def stop
+    if @@processor and @@processor.status != false
+      @@processor.kill
+      @@processor = nil
+      return true
+    else
+      return false
     end
-
   end
+
+  # processor.status
+  def start
+
+    if @@processor == nil or @@processor.status == false
+      @@processor = Thread.new do
+        while true
+          # puts 1
+          begin
+            mission = (Schdule.all.sort_by &:launch_time).first
+            if mission and DateTime.now > mission.launch_time
+
+              # mission.
+              params = mission.get_params
+              mod = mission.get_module_name
+              func = mission.get_func_name
+              mission.delete
+
+              Object.const_get(mod).send(func, *params)
+            end
+          rescue Exception => e
+            puts e.backtrace.join("\n")
+            GeneralHelper.get_agent
+
+          end
+          sleep 2
+          # puts 1
+        end
+      end
+      return true
+    else
+      return false
+    end
+  end
+
+  # processor = Thread.new do
+  #   while true
+  #     puts "#{Thread.current.status}"
+  #     sleep 1
+  #     # puts 1
+  #   end
+  # end
 
   def wake_up
 

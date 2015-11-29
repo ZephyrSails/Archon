@@ -5,18 +5,25 @@ module Captain
   end
 
   def Captain.one_order_loot
-    if Mode.find_by(name: "large_cargo_raid") == 1
+    if Mode.find_by(name: "large_cargo_raid").value == 1
+
       begin
-        puts "#{DateTime.now}, Captain.one_order_loot begin" 
+        puts "#{DateTime.now}, Captain.one_order_loot begin"
         GeneralHelper.get_agent
       rescue
         sleep 1
         retry
       end
+
+      Processor.instance.start
+
       positions = Archivist.get_positions(Archivist.options_close_idle_safe)
       Captain.spy_i_on(positions)
       positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
       Captain.large_cargo_loot(positions)
+
+      sleep 60
+      Processor.instance.stop
     end
   end
 

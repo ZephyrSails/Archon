@@ -66,6 +66,16 @@ module Archivist
     }
   end
 
+  def Archivist.options_galxay_idle()
+    options = {
+      is_idle?: [true],
+      is_less_flight_time?: [true, "1:410:4", 12000, 6000],
+      is_defence_unknow?: [true],
+      has_more_economy_score?: [true]
+    }
+  end
+
+
   def Archivist.get_best_target(count = 10)
     Archivist.get_positions(Archivist.options_close_idle_safe)[0..(count-1)]
   end
