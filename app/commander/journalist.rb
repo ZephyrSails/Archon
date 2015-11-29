@@ -14,7 +14,7 @@ module Journalist
     page_count = message_page.search("li.curPage").text.split("/")[1].to_i
 
     found_it = false
-    for i in 1..page_count
+    for i in 1..3
       message_page = Journalist.to_page(type, i)
       message_page.search("span.msg_title").each do |r|
         message = r.parent.parent
@@ -26,10 +26,11 @@ module Journalist
 
         if found_it
           Journalist.record_espionage(message, position)
-          return
+          return true
         end
       end
     end
+    return false
   end
 
   def Journalist.get_number(number)

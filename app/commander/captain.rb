@@ -63,10 +63,11 @@ module Captain
     fleet_id = General.send_spy(from, to, number)
     # Processor.instance("General.send_spy(#{from}, #{to}, #{number})")
 
-    single_flight_time = Abacus.get_time(from, to, 160000000) + 1
+    single_flight_time = Abacus.get_time(from, to, 160000000) + 5
     return_time = single_flight_time * 2
     Processor.instance.add_schdule("Journalist.report_newest_message(#{to}, espionage)", single_flight_time)
 
+    return single_flight_time
     # TODO Fleet management
     # Processor.instance.add_schdule("General.remove_fleet(#{fleet_id})", return_time)
   end
