@@ -5,30 +5,36 @@ module Captain
   end
 
   def Captain.one_order_loot
-    if Mode.find_by(name: "large_cargo_raid").value == 1
+    begin
+      if Mode.find_by(name: "large_cargo_raid").value == 1
 
-      begin
-        puts "#{DateTime.now}, Captain.one_order_loot begin"
-        GeneralHelper.get_agent
-      rescue
+        begin
+          puts "#{DateTime.now}, Captain.one_order_loot begin"
+          GeneralHelper.get_agent
+        rescue
+          sleep 1
+          retry
+        end
+
+        positions = Archivist.get_positions(Archivist.options_close_idle_safe)
+        Processor.instance.start
+        Captain.spy_i_on(positions, 1, 2)
+
+        while Schdule.all != []
+          sleep 10
+        end
+
+        Processor.instance.stop
+
+        positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
+        Captain.large_cargo_loot(positions)
         sleep 1
-        retry
+
       end
-
-      positions = Archivist.get_positions(Archivist.options_close_idle_safe)
-      Processor.instance.start
-      Captain.spy_i_on(positions, 1, 2)
-
-      while Schdule.all != []
-        sleep 10
-      end
-
+    rescue Exception => e
+      puts "Somgthing VERY BAD just happend"
+      puts e.backtrace.join("\n")
       Processor.instance.stop
-
-      positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
-      Captain.large_cargo_loot(positions)
-      sleep 1
-
     end
   end
 

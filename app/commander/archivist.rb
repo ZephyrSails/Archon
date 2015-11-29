@@ -57,10 +57,10 @@ module Archivist
     }
   end
 
-  def Archivist.options_close_idle_safe()
+  def Archivist.options_close_idle_safe(from = "1:410:4")
     options = {
       is_idle?: [true],
-      is_less_flight_time?: [true, "1:410:4", 12000, 3000],
+      is_less_flight_time?: [true, from, 12000, 3000],
       is_safe?: [true],
       has_more_economy_score?: [true]
     }
@@ -85,11 +85,12 @@ module Archivist
       has_more_economy_score?: [true, eco_score]
     }
   end
-  # options = Archivist.options_idle(duration=3000, speed=12000, eco_score=100, from="1:410:4")
+  # options = Archivist.options_idle(3000, 12000, 100, "1:410:4")
+  # options = Archivist.optins_idle_gala("1", 100)
   # options[:is_safe_to_espionage?] = [true]
   # positions = Archivist.get_positions(Archivist.optins_idle_gala)
   # Processor.instance.start
-  # Captain.spy_i_on(positions, 1, 7)
+  # Captain.spy_i_on(positions, 1, 3)
   # Processor.instance.stop
 
   def Archivist.get_best_target(count = 10)
