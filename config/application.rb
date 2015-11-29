@@ -30,7 +30,7 @@ module Commander
     config.autoload_paths += Dir["#{Rails.root}/app/commander/*"]
     config.eager_load_paths += Dir["#{Rails.root}/app/commander/*"]
 
-    config.time_zone = "London"
+    config.time_zone = "Beijing"
 
     Settings.reload!
     config.after_initialize do
