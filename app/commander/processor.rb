@@ -28,14 +28,18 @@ class Processor
               params = mission.get_params
               mod = mission.get_module_name
               func = mission.get_func_name
-              mission.delete
+              begin
+                Object.const_get(mod).send(func, *params)
+              rescue Exception => e
+                puts e.backtrace.join("\n")
+                GeneralHelper.get_agent
+                retry
+              end
 
-              Object.const_get(mod).send(func, *params)
+              mission.delete
             end
           rescue Exception => e
             puts e.backtrace.join("\n")
-            GeneralHelper.get_agent
-
           end
           sleep 2
           # puts 1
@@ -47,13 +51,7 @@ class Processor
     end
   end
 
-  # processor = Thread.new do
-  #   while true
-  #     puts "#{Thread.current.status}"
-  #     sleep 1
-  #     # puts 1
-  #   end
-  # end
+
 
   def wake_up
 
