@@ -69,7 +69,7 @@ module Archivist
   def Archivist.options_idle(duration=3000, speed=12000, eco_score=100, from="1:410:4")
     options = {
       is_idle?: [true],
-      is_less_flight_time?: [true, from, duration, speed],
+      is_less_flight_time?: [true, from, speed, duration],
       is_defence_unknow?: [true],
       has_more_economy_score?: [true, eco_score]
     }
