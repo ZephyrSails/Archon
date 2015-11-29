@@ -28,17 +28,17 @@ module Captain
   end
 
   # rails runner "Captain.one_order_spy"
-  def Captain.one_order_spy
-    GeneralHelper.get_agent
-    positions = Archivist.get_positions(Archivist.options_light_spy)
-    Captain.spy_i_on(positions, 1, 2)
-  end
-
-  def Captain.one_order_deep_spy
-    GeneralHelper.get_agent
-    positions = Archivist.get_positions(Archivist.options_close_idle_unknow)
-    Captain.spy_i_on(positions, 19, 20)
-  end
+  # def Captain.one_order_spy
+  #   GeneralHelper.get_agent
+  #   positions = Archivist.get_positions(Archivist.options_light_spy)
+  #   Captain.spy_i_on(positions, 1, 2)
+  # end
+  #
+  # def Captain.one_order_deep_spy
+  #   GeneralHelper.get_agent
+  #   positions = Archivist.get_positions(Archivist.options_close_idle_unknow)
+  #   Captain.spy_i_on(positions, 19, 20)
+  # end
 
 
   # $PLANET_I = Archivist.get_planet_i_from(1)
@@ -48,7 +48,7 @@ module Captain
     positions.each_with_index do |to, index|
       begin
         from = "1:410:4"
-        puts "sending spy to #{to.position}, #{index} finished"
+        puts "sending spy to #{to.position}, #{index} finished, #{positions.count} left"
         Captain.send_spy(from, to.position, number)
         sleep interval
       rescue Exception => e
