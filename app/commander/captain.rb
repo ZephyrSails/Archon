@@ -87,11 +87,4 @@ module Captain
     end
   end
 
-
-
-  def Captain.deep_spy(from, to)
-    General.send_spy(from, to, 39)
-  end
-
-
 end
