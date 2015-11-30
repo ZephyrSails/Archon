@@ -29,6 +29,7 @@ module Captain
       end
     rescue => e
       puts "Somgthing VERY BAD just happend"
+      puts "I choose to death"
       puts e.backtrace.join("\n")
       Processor.instance.stop
     end
@@ -61,6 +62,7 @@ module Captain
       rescue => e
         begin
           sleep 0.1
+          puts "I'm rescue some big mistake"
           puts e.backtrace.join("\n")
           GeneralHelper.get_agent
         rescue
@@ -93,8 +95,14 @@ module Captain
 
         DroneNavy.send_fleet(from, to.position, :attack, fleet)
       rescue => e
-        puts e.backtrace.join("\n")
-        GeneralHelper.get_agent
+        begin
+          sleep 0.1
+          puts "I'm rescue some big mistake"
+          puts e.backtrace.join("\n")
+          GeneralHelper.get_agent
+        rescue
+          retry
+        end
         retry
       end
     end
