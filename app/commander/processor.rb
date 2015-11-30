@@ -30,7 +30,7 @@ class Processor
               func = mission.get_func_name
               begin
                 Object.const_get(mod).send(func, *params)
-              rescue Exception => e
+              rescue => e
                 puts e.backtrace.join("\n")
                 GeneralHelper.get_agent
                 retry
@@ -38,7 +38,7 @@ class Processor
 
               mission.delete
             end
-          rescue Exception => e
+          rescue => e
             puts e.backtrace.join("\n")
           end
           sleep 2

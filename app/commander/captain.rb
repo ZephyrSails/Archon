@@ -27,7 +27,7 @@ module Captain
         sleep 0.1
 
       end
-    rescue Exception => e
+    rescue => e
       puts "Somgthing VERY BAD just happend"
       puts e.backtrace.join("\n")
       Processor.instance.stop
@@ -58,7 +58,7 @@ module Captain
         puts "[Captain] sending spy to #{to.position}, #{index} finished, #{positions.count} left"
         Captain.send_spy(from, to.position, number)
         sleep interval
-      rescue Exception => e
+      rescue => e
         begin
           sleep 0.1
           puts e.backtrace.join("\n")
@@ -92,7 +92,7 @@ module Captain
         fleet.large_cargo = to.need_large_cargo
 
         DroneNavy.send_fleet(from, to.position, :attack, fleet)
-      rescue Exception => e
+      rescue => e
         puts e.backtrace.join("\n")
         GeneralHelper.get_agent
         retry
