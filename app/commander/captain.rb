@@ -1,9 +1,5 @@
 module Captain
 
-  def Captain.hello
-    puts "Hi, there"
-  end
-
   def Captain.one_order_loot
     begin
       if Mode.find_by(name: "large_cargo_raid").value == 1
@@ -12,7 +8,7 @@ module Captain
           puts "#{DateTime.now}, Captain.one_order_loot begin"
           GeneralHelper.get_agent
         rescue
-          sleep 0.5
+          sleep 0.1
           retry
         end
 
@@ -28,7 +24,7 @@ module Captain
 
         positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
         Captain.large_cargo_loot(positions)
-        sleep 0.5
+        sleep 0.1
 
       end
     rescue Exception => e
@@ -59,12 +55,17 @@ module Captain
     positions.each_with_index do |to, index|
       begin
         from = "1:410:4"
-        puts "sending spy to #{to.position}, #{index} finished, #{positions.count} left"
+        puts "[Captain] sending spy to #{to.position}, #{index} finished, #{positions.count} left"
         Captain.send_spy(from, to.position, number)
         sleep interval
       rescue Exception => e
-        puts e.backtrace.join("\n")
-        GeneralHelper.get_agent
+        begin
+          sleep 0.1
+          puts e.backtrace.join("\n")
+          GeneralHelper.get_agent
+        rescue
+          retry
+        end
         retry
       end
     end
