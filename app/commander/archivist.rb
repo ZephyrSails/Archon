@@ -90,7 +90,7 @@ module Archivist
     options = {
       is_idle?: [true],
       get_galaxy: [galaxy],
-      is_safe_to_espionage_unknow?: = [true],
+      is_safe_to_espionage_unknow?: [true],
       has_more_economy_score?: [true, eco_score]
     }
   end
@@ -99,7 +99,7 @@ module Archivist
     options = {
       is_idle?: [true],
       get_galaxy: [galaxy],
-      is_safe_to_espionage?: = [true],
+      is_safe_to_espionage?: [true],
       is_defence_unknow?: [true],
       has_more_economy_score?: [true, eco_score]
     }
@@ -107,6 +107,7 @@ module Archivist
   # options = Archivist.options_idle(3000, 12750, 100, "1:410:4")
   # options = Archivist.optins_idle_gala("1", 100)
   # options[:is_safe_to_espionage?] = [true]
+  options = Archivist.options_idle_safe_to_espionage_unknow
   # positions = Archivist.get_positions(options)
   # Processor.instance.start
   # GeneralHelper.get_agent
