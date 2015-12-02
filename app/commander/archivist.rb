@@ -108,10 +108,11 @@ module Archivist
   # options = Archivist.optins_idle_gala("1", 100)
   # options[:is_safe_to_espionage?] = [true]
   # options = Archivist.options_idle_safe_to_espionage_unknow
+  # options = Archivist.options_idle_defence_unknow
   # positions = Archivist.get_positions(options)
   # Processor.instance.start
   # GeneralHelper.get_agent
-  # Captain.spy_i_on(positions, 1, 7)
+  # Captain.spy_i_on(positions, 1, 1)
   # Processor.instance.stop
 
   def Archivist.get_best_target(count = 10)

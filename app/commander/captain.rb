@@ -56,7 +56,7 @@ module Captain
     positions.each_with_index do |to, index|
       begin
         from = "1:410:4"
-        puts "[Captain] sending spy to #{to.position}, #{index} finished, #{positions.count} left"
+        puts "[Captain] sending spy to #{to.position}, #{index} finished, #{positions.count-index} left"
         Captain.send_spy(from, to.position, number)
         sleep interval
       rescue => e
