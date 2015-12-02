@@ -46,7 +46,7 @@ class Planet < ActiveRecord::Base
 
   end
 
-  def is_less_flight_time?(position, speed = 12750, second = 2700)
+  def is_less_flight_time?(position, speed = 15000, second = 2700)
     if Abacus.get_time(self.position, position, speed) < second
       return true
     else
