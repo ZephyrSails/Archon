@@ -74,6 +74,14 @@ class Planet < ActiveRecord::Base
     end
   end
 
+  def is_safe_to_espionage_unknow?
+    if self.counter_espionage == nil
+      return true
+    else
+      return false
+    end
+  end
+
   def is_defence_unknow?
     if self.defence_value == Settings.unknow
       return true
