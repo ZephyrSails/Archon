@@ -14,7 +14,7 @@ module Captain
 
         positions = Archivist.get_positions(Archivist.options_close_idle_safe)
         Processor.instance.start
-        Captain.spy_i_on(positions, 1, 2)
+        Captain.spy_i_on(positions, 1, 0.1)
 
         while Schdule.all != []
           sleep 10

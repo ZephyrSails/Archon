@@ -112,7 +112,7 @@ module Archivist
   # positions = Archivist.get_positions(options)
   # Processor.instance.start
   # GeneralHelper.get_agent
-  # Captain.spy_i_on(positions, 1, 1)
+  # Captain.spy_i_on(positions, 12, 10)
   # Processor.instance.stop
 
   def Archivist.get_best_target(count = 10)

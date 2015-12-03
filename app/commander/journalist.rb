@@ -13,6 +13,7 @@ module Journalist
 
     page_count = message_page.search("li.curPage").text.split("/")[1].to_i
 
+    puts "begin to report #{type} message on #{position}"
     found_it = false
     for i in 1..7
       message_page = Journalist.to_page(type, i)
