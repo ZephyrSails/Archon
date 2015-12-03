@@ -6,6 +6,17 @@ class Planet < ActiveRecord::Base
   has_one :facility, dependent: :destroy
   has_many :fleets, dependent: :destroy
 
+  def update_farm_count
+    if self.farm_count == nil
+      self.farm_count = 1
+      # self.update(:farm_count => 1)
+    else
+      self.farm_count += 1
+    end
+    self.save
+
+  end
+
   def get_galaxy
     return self.position.split(":")[0]
   end

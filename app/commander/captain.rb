@@ -1,6 +1,7 @@
 module Captain
 
   def Captain.one_order_loot
+    start_at = Time.now
     begin
       if Mode.find_by(name: "large_cargo_raid").value == 1
 
@@ -33,6 +34,8 @@ module Captain
       puts e.backtrace.join("\n")
       Processor.instance.stop
     end
+    end_at = Time.now
+    puts "Captain.one_order_loot Completed at #{DateTime.now}, time used: #{(end_at-start_at).round(1)} seconds"
   end
 
   # rails runner "Captain.one_order_spy"
@@ -89,11 +92,14 @@ module Captain
   def Captain.large_cargo_loot(positions)
     positions.each_with_index do |to, index|
       begin
+
         from = "1:410:4"
         fleet = Fleet.new
         fleet.large_cargo = to.need_large_cargo
 
         DroneNavy.send_fleet(from, to.position, :attack, fleet)
+
+        to.update_farm_count
       rescue => e
         begin
           sleep 0.1

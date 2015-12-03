@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129012240) do
+ActiveRecord::Schema.define(version: 20151203091838) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20151129012240) do
     t.integer  "loot"
     t.string   "activity"
     t.integer  "resource_sum"
+    t.integer  "farm_count"
   end
 
   add_index "planets", ["empire_id"], name: "index_planets_on_empire_id"
