@@ -5,7 +5,7 @@ module Journalist
     page_count = message_page.search("li.curPage").text.split("/")[1].to_i
     if page_count == 0
       raise "turn_to message failed or no message"
-    elsif page_count > end_page
+    elsif page_count < end_page
       end_page = page_count
     end
 
