@@ -30,11 +30,9 @@ module Captain
           retry
         end
 
-
         # while Schdule.all != []
         #   sleep 10
         # end
-
         # Processor.instance.stop
 
         positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
