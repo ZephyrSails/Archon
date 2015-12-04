@@ -10,22 +10,25 @@ module Journalist
     end
 
     for i in start_page..end_page
-      puts "reporting page #{i}"
-      message_page = Journalist.to_page(:espionage, i)
-      message_page.search("span.msg_title").each do |r|
-        message = r.parent.parent
+      begin
+        puts "reporting page #{i}"
+        message_page = Journalist.to_page(:espionage, i)
+        message_page.search("span.msg_title").each do |r|
+          message = r.parent.parent
 
-        is_moon = false
-        is_moon = true if message.search("figure.moon").to_s != ""
-        position = message.search("a.txt_link").first.text[/\[(.*?)\]/, 1]
+          is_moon = false
+          is_moon = true if message.search("figure.moon").to_s != ""
+          position = message.search("a.txt_link").first.text[/\[(.*?)\]/, 1]
 
-        # found_it = true if position == message.search("a.txt_link").first.text[/\[(.*?)\]/, 1] and moon == is_moon
-
-        Journalist.record_espionage(message, position, is_moon)
-        # if found_it
-        #   Journalist.record_espionage(message, position, is_moon)
-        #   return true
-        # end
+          Journalist.record_espionage(message, position, is_moon)
+        end
+      rescue
+        begin
+          Account.instance.login
+        rescue
+          retry
+        end
+        retry
       end
       # puts "[Journalist] page #{i}, didn't found"
     end

@@ -19,7 +19,17 @@ module Captain
 
         sleep 50
 
-        Journalist.report_messages(1, 7)
+        begin
+          Journalist.report_espionage_messages(1, 7)
+        rescue
+          begin
+            Account.instance.login
+          rescue
+            retry
+          end
+          retry
+        end
+
 
         # while Schdule.all != []
         #   sleep 10
@@ -106,7 +116,7 @@ module Captain
 
         to.update_farm_count
       rescue => e
-        
+
         begin
           sleep 0.1
           puts "I'm rescue some big mistake"
