@@ -111,7 +111,7 @@ module Archivist
   # options = Archivist.options_idle_defence_unknow
   # positions = Archivist.get_positions(options)
   # Processor.instance.start
-  # GeneralHelper.get_agent
+  # Account.instance.login
   # Captain.spy_i_on(positions, 12, 10)
   # Processor.instance.stop
 

@@ -7,21 +7,25 @@ module Captain
 
         begin
           puts "#{DateTime.now}, Captain.one_order_loot begin"
-          GeneralHelper.get_agent
+          Account.instance.login
         rescue
           sleep 0.1
           retry
         end
 
         positions = Archivist.get_positions(Archivist.options_close_idle_safe)
-        Processor.instance.start
+        # Processor.instance.start
         Captain.spy_i_on(positions, 1, 0.1)
 
-        while Schdule.all != []
-          sleep 10
-        end
+        sleep 50
 
-        Processor.instance.stop
+        Journalist.report_messages(1, 7)
+
+        # while Schdule.all != []
+        #   sleep 10
+        # end
+
+        # Processor.instance.stop
 
         positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
         Captain.large_cargo_loot(positions)
@@ -40,13 +44,13 @@ module Captain
 
   # rails runner "Captain.one_order_spy"
   # def Captain.one_order_spy
-  #   GeneralHelper.get_agent
+  #   Account.instance.login
   #   positions = Archivist.get_positions(Archivist.options_light_spy)
   #   Captain.spy_i_on(positions, 1, 2)
   # end
   #
   # def Captain.one_order_deep_spy
-  #   GeneralHelper.get_agent
+  #   Account.instance.login
   #   positions = Archivist.get_positions(Archivist.options_close_idle_unknow)
   #   Captain.spy_i_on(positions, 19, 20)
   # end
@@ -54,7 +58,7 @@ module Captain
 
   # $PLANET_I = Archivist.get_planet_i_from(1)
   # positions = Archivist.get_positions(Archivist.options_close_idle_unknow)
-  # GeneralHelper.get_agent
+  # Account.instance.login
   def Captain.spy_i_on(positions, number = 1, interval = 5)
     positions.each_with_index do |to, index|
       begin
@@ -67,7 +71,7 @@ module Captain
           sleep 0.1
           puts "I'm rescue some big mistake"
           puts e.backtrace.join("\n")
-          GeneralHelper.get_agent
+          Account.instance.login
         rescue
           retry
         end
@@ -82,7 +86,8 @@ module Captain
 
     single_flight_time = Abacus.get_time(from, to, 160000000) + 5
     return_time = single_flight_time * 2
-    Processor.instance.add_schdule("Journalist.report_newest_message(#{to}, espionage)", single_flight_time)
+
+    # Processor.instance.add_schdule("Journalist.report_newest_message(#{to}, espionage)", single_flight_time)
 
     return single_flight_time
     # TODO Fleet management
@@ -105,7 +110,7 @@ module Captain
           sleep 0.1
           puts "I'm rescue some big mistake"
           puts e.backtrace.join("\n")
-          GeneralHelper.get_agent
+          Account.instance.login
         rescue
           retry
         end

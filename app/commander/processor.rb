@@ -32,7 +32,7 @@ class Processor
                 Object.const_get(mod).send(func, *params)
               rescue => e
                 puts e.backtrace.join("\n")
-                GeneralHelper.get_agent
+                Account.instance.login
                 retry
               end
 

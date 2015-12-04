@@ -1,10 +1,37 @@
 module Journalist
 
-  # include GeneralHelper
+  def Journalist.report_espionage_messages(start_page, end_page)
+    message_page = Journalist.to_page(:espionage, 1)
+    page_count = message_page.search("li.curPage").text.split("/")[1].to_i
+    if page_count == 0
+      raise "turn_to message failed or no message"
+    elsif page_count > end_page
+      end_page = page_count
+    end
 
-  # GeneralHelper.get_agent
-  # Journalist.report_newest_message("6:195:8", "espionage")
-  # Journalist.report_newest_message(position, type)
+    for i in start_page..end_page
+      puts "reporting page #{i}"
+      message_page = Journalist.to_page(:espionage, i)
+      message_page.search("span.msg_title").each do |r|
+        message = r.parent.parent
+
+        is_moon = false
+        is_moon = true if message.search("figure.moon").to_s != ""
+        position = message.search("a.txt_link").first.text[/\[(.*?)\]/, 1]
+
+        # found_it = true if position == message.search("a.txt_link").first.text[/\[(.*?)\]/, 1] and moon == is_moon
+
+        Journalist.record_espionage(message, position, is_moon)
+        # if found_it
+        #   Journalist.record_espionage(message, position, is_moon)
+        #   return true
+        # end
+      end
+      # puts "[Journalist] page #{i}, didn't found"
+    end
+    return true
+
+  end
 
   def Journalist.report_newest_message(position, type, deep = false, moon = false)
     # message_page = $AGENT.get Settings.s131.pages.messages
@@ -12,6 +39,9 @@ module Journalist
     # message_page.search("span.msg_title")
 
     page_count = message_page.search("li.curPage").text.split("/")[1].to_i
+    if page_count == 0
+      puts "turn to page unsuccessful"
+    end
 
     puts "begin to report #{type} message on #{position}"
     found_it = false
@@ -44,14 +74,33 @@ module Journalist
     end
   end
 
-  def Journalist.record_espionage(message, position)
+  def Journalist.record_espionage(message, position, is_moon = false)
     puts "[Journalist]report planet at #{position}"
-    # puts message
 
+    planet = Planet.find_by(position: position)
+
+    time = message.search("span.msg_date.fright").text.to_time
+    at = Time.new(time.year,time.month,time.day,time.hour,time.min,time.sec, "+00:00")
+    report_time = ActiveSupport::TimeZone.new('London').local_to_utc(at).getlocal
+
+    if planet == nil
+      puts "can't found this planet in database"
+      return false
+    elsif report_time < planet.updated_at
+      puts "this message is too old"
+      return false
+    end
+    # puts message
 
     metal = Settings.unknow
     crystal = Settings.unknow
     deuterium = Settings.unknow
+    if message.search("span.status_abbr_inactive").empty?
+      is_idle = true
+    else
+      is_idle = false
+    end
+
     message.search("span.resspan").each_with_index do |m, i|
       # puts m
       # puts i
@@ -103,7 +152,6 @@ module Journalist
       end
     end
 
-    planet = Planet.find_by(position: position)
     planet.counter_espionage = counter_espionage
     planet.fleets_value = fleets_value
     if planet.defence_value == Settings.unknow
@@ -116,6 +164,10 @@ module Journalist
     planet.resource_value = metal + crystal * 1.5 + deuterium * 3.0
     planet.loot = loot
     planet.activity = activity
+
+    if message.search("span.status_abbr_inactive.tooltip.js_hideTipOnMobile").text != ""
+      planet.empire.update(status: message.search("span.status_abbr_inactive.tooltip.js_hideTipOnMobile").text)
+    end
 
     if planet.resource == nil
       resource = Resource.new do |resource|
@@ -132,6 +184,7 @@ module Journalist
       planet.resource.deuterium = deuterium
       planet.resource.save
     end
+
     planet.save
   end
 

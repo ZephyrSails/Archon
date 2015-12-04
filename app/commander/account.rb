@@ -1,5 +1,6 @@
-module GeneralHelper
-  def GeneralHelper.get_agent
+class Account
+  include Singleton
+  def login
     $AGENT = Mechanize.new
     $AGENT.log = Logger.new "mech.log"
     page = $AGENT.get "http://en.ogame.gameforge.com/"
@@ -13,5 +14,9 @@ module GeneralHelper
     $AGENT.open_timeout = 7
     $AGENT.read_timeout = 7
     puts "login success"
+  end
+
+  def Account.lock
+
   end
 end

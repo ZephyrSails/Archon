@@ -1,7 +1,7 @@
 module BlackEagle
 
   def BlackEagle.update_resource
-    login_result = GeneralHelper.get_agent
+    login_result = Account.instance.login
 
     puts login_result.body
     metal = eval(login_result.body.to_s[/metal":{"resources":(.*?),"tooltip":"Metal/, 1])
