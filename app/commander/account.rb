@@ -3,6 +3,8 @@ class Account
   def login
     $AGENT = Mechanize.new
     $AGENT.log = Logger.new "mech.log"
+    $AGENT.open_timeout = 7
+    $AGENT.read_timeout = 7
     page = $AGENT.get "http://en.ogame.gameforge.com/"
     empire = Empire.find_by(api_id: "113232")
 
@@ -11,8 +13,6 @@ class Account
     login_form.field_with(:name => "pass").value = empire.pass
     login_form.field_with(:name => "uni").value = "#{empire.galaxy.code}.ogame.gameforge.com"
     login_result = $AGENT.submit login_form
-    $AGENT.open_timeout = 7
-    $AGENT.read_timeout = 7
     puts "login success"
   end
 

@@ -106,6 +106,7 @@ module Captain
 
         to.update_farm_count
       rescue => e
+        
         begin
           sleep 0.1
           puts "I'm rescue some big mistake"
@@ -114,6 +115,7 @@ module Captain
         rescue
           retry
         end
+
         retry
       end
     end
