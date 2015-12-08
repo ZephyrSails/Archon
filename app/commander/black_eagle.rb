@@ -58,6 +58,8 @@ module BlackEagle
     $AGENT = Mechanize.new
     rank_page = $AGENT.get Settings.apis.players
     players_page = $AGENT.get Settings.apis.players
+    $AGENT.open_timeout = 3
+    $AGENT.read_timeout = 3
 
     players_page.search("player").each do |player|
 
@@ -71,7 +73,12 @@ module BlackEagle
       begin
         player_page = $AGENT.get "#{Settings.apis.player}#{player_id}"
       rescue
-        next
+        $AGENT = Mechanize.new
+        rank_page = $AGENT.get Settings.apis.players
+        players_page = $AGENT.get Settings.apis.players
+        $AGENT.open_timeout = 3
+        $AGENT.read_timeout = 3
+        retry
       end
 
       begin
