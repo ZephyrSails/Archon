@@ -85,10 +85,11 @@ module Journalist
     at = Time.new(time.year,time.month,time.day,time.hour,time.min,time.sec, "+00:00")
     report_time = ActiveSupport::TimeZone.new('London').local_to_utc(at).getlocal
 
+    time = Time.now
     if planet == nil
       puts "can't found this planet in database"
       return false
-    elsif report_time < planet.updated_at
+    elsif time - report_time > 3600
       puts "this message is too old"
       return false
     end
