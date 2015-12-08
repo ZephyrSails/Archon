@@ -33,7 +33,6 @@ module Journalist
       # puts "[Journalist] page #{i}, didn't found"
     end
     return true
-
   end
 
   def Journalist.report_newest_message(position, type, deep = false, moon = false)
@@ -103,6 +102,7 @@ module Journalist
     else
       is_idle = false
     end
+    puts "is_idle: #{is_idle}"
 
     message.search("span.resspan").each_with_index do |m, i|
       # puts m
@@ -186,6 +186,10 @@ module Journalist
       planet.resource.crystal = crystal
       planet.resource.deuterium = deuterium
       planet.resource.save
+    end
+
+    if !is_idle
+      planet.empire.update(status: "")
     end
 
     planet.save

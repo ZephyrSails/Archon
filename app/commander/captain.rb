@@ -9,7 +9,7 @@ module Captain
           puts "#{DateTime.now}, Captain.one_order_loot begin"
           Account.instance.login
         rescue
-          sleep 0.1
+          sleep 0.01
           retry
         end
 
@@ -37,7 +37,7 @@ module Captain
 
         positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
         Captain.large_cargo_loot(positions)
-        sleep 0.1
+        sleep 0.01
 
       end
     rescue => e
@@ -76,7 +76,7 @@ module Captain
         sleep interval
       rescue => e
         begin
-          sleep 0.1
+          sleep 0.01
           puts "I'm rescue some big mistake"
           puts e.backtrace.join("\n")
           Account.instance.login
@@ -116,7 +116,7 @@ module Captain
       rescue => e
 
         begin
-          sleep 0.1
+          sleep 0.01
           puts "I'm rescue some big mistake"
           puts e.backtrace.join("\n")
           Account.instance.login
