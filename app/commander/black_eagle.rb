@@ -73,6 +73,7 @@ module BlackEagle
       begin
         player_page = $AGENT.get "#{Settings.apis.player}#{player_id}"
       rescue
+        puts "3 sec failed"
         $AGENT = Mechanize.new
         rank_page = $AGENT.get Settings.apis.players
         players_page = $AGENT.get Settings.apis.players
