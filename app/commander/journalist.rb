@@ -98,9 +98,9 @@ module Journalist
     crystal = Settings.unknow
     deuterium = Settings.unknow
     if message.search("span.status_abbr_inactive").empty?
-      is_idle = true
-    else
       is_idle = false
+    else
+      is_idle = true
     end
     puts "is_idle: #{is_idle}"
 
