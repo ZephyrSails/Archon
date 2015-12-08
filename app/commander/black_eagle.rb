@@ -82,7 +82,7 @@ module BlackEagle
           $AGENT.read_timeout = 3
         rescue
           retry
-        retry
+        end
       end
 
       begin
@@ -208,5 +208,4 @@ module BlackEagle
     puts "best pleace: #{g.to_s}:#{best_index}"
     return best_index
   end
-
 end
