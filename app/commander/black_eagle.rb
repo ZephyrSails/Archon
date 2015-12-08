@@ -73,12 +73,15 @@ module BlackEagle
       begin
         player_page = $AGENT.get "#{Settings.apis.player}#{player_id}"
       rescue
-        puts "3 sec failed"
-        $AGENT = Mechanize.new
-        rank_page = $AGENT.get Settings.apis.players
-        players_page = $AGENT.get Settings.apis.players
-        $AGENT.open_timeout = 3
-        $AGENT.read_timeout = 3
+        begin
+          puts "3 sec failed"
+          $AGENT = Mechanize.new
+          rank_page = $AGENT.get Settings.apis.players
+          players_page = $AGENT.get Settings.apis.players
+          $AGENT.open_timeout = 3
+          $AGENT.read_timeout = 3
+        rescue
+          retry
         retry
       end
 
