@@ -116,7 +116,7 @@ module Captain
       rescue => e
 
         begin
-          sleep 0.01
+          sleep 1
           puts "I'm rescue some big mistake"
           puts e.backtrace.join("\n")
           Account.instance.login
