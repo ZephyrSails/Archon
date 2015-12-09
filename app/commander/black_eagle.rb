@@ -31,26 +31,37 @@ module BlackEagle
     puts "actual: #{energy[:actual]}"
   end
 
-  # def BlackEagle.update_planet
-  #   $AGENT = Mechanize.new
-  #   planets_page = $AGENT.get Settings.apis.planets
-  #   players_page = $AGENT.get Settings.apis.players
-  #   rank_page = $AGENT.get Settings.apis.rank
-  #
-  #   planets.search("planet").each do |p|
-  #     planet_id = p.attribute("id").to_s
-  #     player_score = rank_page.search("player[id=\"#{planet_id}\"]").attribute("score").to_s
-  #     planet_location = p.attribute("coords").to_s
-  #     planet_name = p.attribute("name").to_s
-  #     player_id = rank_page.search("player[id=\"#{planet_id}\"]").attribute("position").to_s
-  #     player_rank = rank_page.search("player[id=\"#{planet_id}\"]").attribute("score").to_s
-  #     player_status = players_page.search("player[id=\"#{planet_id}\"]").attribute("status").to_s
-  #
-  #
-  #     player_id = p.attribute
-  #     doc.search 'elements[type="foo:elementType1"]'
-  #   end
-  # end
+  def BlackEagle.galaxy_report(gala)
+    galaxy = []
+    score = []
+    for i in 1..499
+      galaxy[i] = "#{i}"
+      score[i] = ""
+    end
+    Planet.all.each do |p|
+      if p.position.split(":")[0] == gala.to_s
+        if p.empire.status == "" or p.empire.status == nil
+          galaxy[p.position.split(":")[1].to_i] += " #{p.position.split(":")[2]}:#{p.empire.rank}(#{p.empire.status})"
+        end
+      end
+    end
+    # puts galaxy
+    puts galaxy
+
+    # for i in 1..499
+    #   for j in 1..499
+    #     if (i-j).abs <= 30
+    #       score[i] += galaxy[j]/ Math.sqrt(2700000+95000*(i-j).abs)
+    #     elsif (i-j).abs <= 90
+    #       score[i] += (galaxy[j]/ Math.sqrt(2700000+95000*(i-j).abs))/4
+    #     # elsif (i-j).abs <= 160
+    #     #   score[i] += (galaxy[j]/ Math.sqrt(2700000+95000*(i-j).abs))/4
+    #
+    #     end
+    #   end
+    # end
+
+  end
 
   # rails runner "BlackEagle.weekly_update_galaxy"
   def BlackEagle.update_universe
@@ -58,8 +69,8 @@ module BlackEagle
     $AGENT = Mechanize.new
     rank_page = $AGENT.get Settings.apis.players
     players_page = $AGENT.get Settings.apis.players
-    $AGENT.open_timeout = 3
-    $AGENT.read_timeout = 3
+    $AGENT.open_timeout = 1.5
+    $AGENT.read_timeout = 1.5
 
     players_page.search("player").each do |player|
 
