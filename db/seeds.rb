@@ -7,3 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Mode.create(name: "large_cargo_raid", value: 1)
+
+Preference.lc_fleet_count = 10 if Preference.lc_fleet_count == nil
