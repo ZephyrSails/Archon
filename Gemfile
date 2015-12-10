@@ -56,3 +56,5 @@ gem 'config'
 gem 'thin'
 
 gem 'whenever', :require => false
+
+gem "rails-settings-cached", "~> 0.4.0"

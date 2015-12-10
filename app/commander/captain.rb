@@ -35,7 +35,7 @@ module Captain
         # end
         # Processor.instance.stop
 
-        positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..9]
+        positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..Preference.lc_fleet_count]
         Captain.large_cargo_loot(positions)
         sleep 0.01
 

@@ -40,7 +40,8 @@ module BlackEagle
     end
     Planet.all.each do |p|
       if p.position.split(":")[0] == gala.to_s
-        if p.empire.status == "" or p.empire.status == nil
+        # if p.empire.status == "" or p.empire.status == nil
+        if true
           galaxy[p.position.split(":")[1].to_i] += " #{p.position.split(":")[2]}:#{p.empire.rank}(#{p.empire.status})"
         end
       end
