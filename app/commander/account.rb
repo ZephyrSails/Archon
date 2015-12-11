@@ -1,4 +1,5 @@
 class Account
+  
   include Singleton
   def login
     $AGENT = Mechanize.new
