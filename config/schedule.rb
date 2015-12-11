@@ -26,6 +26,6 @@
 set :output, "/home/zephyr/code/Archon/cron_log.log"
 every 2.hours do
   # runner "puts #{Time.now}"
-  runner "Captain.one_order_loot"
+  proxychains runner "Captain.one_order_loot"
   # runner "ApplicationHelper.new_inspections"
 end

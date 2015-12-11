@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use sqlite3 as the database for Active Record
@@ -58,3 +57,5 @@ gem 'thin'
 gem 'whenever', :require => false
 
 gem "rails-settings-cached", "~> 0.4.0"
+
+# gem "shadowsocks"
