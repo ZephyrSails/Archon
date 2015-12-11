@@ -35,7 +35,7 @@ module Archivist
   def Archivist.options_light_spy()
     options = {
       is_idle?: [true],
-      is_less_flight_time?: [true, "1:410:4", 15000, 3150],
+      is_less_flight_time?: [true, "1:410:4", 16500, 3150],
       is_defence_unknow?: [true]
     }
   end
@@ -51,7 +51,7 @@ module Archivist
   def Archivist.options_close_idle_unknow()
     options = {
       is_idle?: [true],
-      is_less_flight_time?: [true, "1:410:4", 15000, 3150],
+      is_less_flight_time?: [true, "1:410:4", 16500, 3150],
       is_safe_to_espionage?: [true],
       is_defence_unknow?: [true]
     }
@@ -60,13 +60,13 @@ module Archivist
   def Archivist.options_close_idle_safe(from = "1:410:4")
     options = {
       is_idle?: [true],
-      is_less_flight_time?: [true, from, 15000, 3150],
+      is_less_flight_time?: [true, from, 16500, 3150],
       is_safe?: [true],
       has_more_economy_score?: [true]
     }
   end
 
-  def Archivist.options_idle(duration=3150, speed=15000, eco_score=100, from="1:410:4")
+  def Archivist.options_idle(duration=3150, speed=16500, eco_score=100, from="1:410:4")
     options = {
       is_idle?: [true],
       get_galaxy: ["1"],
@@ -104,7 +104,7 @@ module Archivist
       has_more_economy_score?: [true, eco_score]
     }
   end
-  # options = Archivist.options_idle(3150, 15000, 100, "1:410:4")
+  # options = Archivist.options_idle(3150, 16500, 100, "1:410:4")
   # options = Archivist.optins_idle_gala("1", 100)
   # options[:is_safe_to_espionage?] = [true]
   # options = Archivist.options_idle_safe_to_espionage_unknow
