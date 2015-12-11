@@ -3,7 +3,7 @@ module Captain
   def Captain.one_order_loot
     start_at = Time.now
     begin
-      if Mode.find_by(name: "large_cargo_raid").value == 1
+      # if Mode.find_by(name: "large_cargo_raid").value == 1
 
         begin
           puts "#{DateTime.now}, Captain.one_order_loot begin"
@@ -39,7 +39,7 @@ module Captain
         Captain.large_cargo_loot(positions)
         sleep 0.01
 
-      end
+      # end
     rescue => e
       puts "Somgthing VERY BAD just happend"
       puts "I choose to death"

@@ -36,7 +36,9 @@ module Commander
     config.after_initialize do
 
       if ENV['server_mode']
-        # Captain.one_order_loot
+
+
+        Captain.one_order_loot
 
         # $update = Thread.new do
         #   Captain.one_order_spy
