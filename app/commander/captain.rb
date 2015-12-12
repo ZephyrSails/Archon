@@ -20,7 +20,7 @@ module Captain
         sleep 50
 
         begin
-          Journalist.report_espionage_messages(1, 7)
+          Journalist.report_espionage_messages(1, 10)
         rescue
           begin
             Account.instance.login
