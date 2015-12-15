@@ -165,7 +165,7 @@ module Journalist
     end
 
     planet.resource_sum = resource_sum
-    planet.resource_value = metal + crystal * 1.5 + deuterium * 3.0
+    planet.resource_value = metal + crystal * 3.0 + deuterium * 3.0
     planet.loot = loot
     planet.activity = activity
 

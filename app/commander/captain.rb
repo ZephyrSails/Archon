@@ -113,6 +113,7 @@ module Captain
         DroneNavy.send_fleet(from, to.position, :attack, fleet)
 
         to.update_farm_count
+        
       rescue => e
 
         begin

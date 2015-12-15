@@ -19,4 +19,14 @@ module General
     return id
   end
 
+  def General.count_fleet
+    page = $AGENT.get("http://s131-en.ogame.gameforge.com/game/index.php?page=movement")
+    fleet_count = []
+
+    $CURRENT_FLEET = page.search("span.fleetSlots").search("span.current")
+    # fleet_count[1] = page.search("span.fleetSlots").search("span.all")
+
+    return $CURRENT_FLEET
+  end
+
 end
