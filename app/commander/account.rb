@@ -2,11 +2,11 @@ class Account
 
   include Singleton
   def login
-    begin
       $AGENT = Mechanize.new
       $AGENT.log = Logger.new "mech.log"
       $AGENT.open_timeout = 7
       $AGENT.read_timeout = 7
+    begin
       page = $AGENT.get "http://en.ogame.gameforge.com/"
       empire = Empire.find_by(api_id: "113232")
 

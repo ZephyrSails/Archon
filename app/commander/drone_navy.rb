@@ -1,5 +1,56 @@
 module DroneNavy
 
+  def DroneNavy.send_lcs(from, positions, speed = 10, cargo = [0, 0, 0])
+    retry_time = 3
+    puts "[DroneNavy] #{DateTime.now}, begin to send lcs"
+
+    fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+
+    positions.each do |to|
+        sleep 0.01
+        lc_count = fleet1_page.body.to_s[/Large Cargo\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
+        ship_choosen_form = fleet1_page.form_with :name => "shipsChosen"
+        # large_cargo = to.need_large_cargo
+        lc_needed = to.need_large_cargo
+        ship_choosen_form.field_with(:name => "am203").value = lc_needed
+        ship_choosen_form.field_with(:name => "galaxy").value = from.split(":")[0].to_i
+        ship_choosen_form.field_with(:name => "system").value = from.split(":")[1].to_i
+        ship_choosen_form.field_with(:name => "position").value = from.split(":")[2].to_i
+        ship_choosen_form.field_with(:name => "speed").value = speed
+        puts "--[DroneNavy] #{DateTime.now}, sending fleet, process 1 complished, dispatching #{lc_needed}"
+
+        sleep 0.01
+        details_form = fleet2_page.form_with :name => "details"
+        details_form.field_with(:name => "mission").value = Settings.missions[mission]
+        details_form.field_with(:name => "galaxy").value = to.position.split(":")[0].to_i
+        details_form.field_with(:name => "system").value = to.position.split(":")[1].to_i
+        details_form.field_with(:name => "position").value = to.position.split(":")[2].to_i
+        puts "--[DroneNavy] #{DateTime.now}, sending fleet, process 2 complished"
+      begin
+        fleet3_page = $AGENT.submit details_form
+        sleep 0.01
+        sending_form = fleet3_page.form_with :name => "sendForm"
+        sending_form.field_with(:name => "metal").value = cargo[0]
+        sending_form.field_with(:name => "crystal").value = cargo[1]
+        sending_form.field_with(:name => "deuterium").value = cargo[2]
+        puts "--[DroneNavy] #{DateTime.now}, sending fleet, process 3 complished"
+        final_page = $AGENT.submit sending_form
+
+        if final_page.body.to_s[/Large Cargo\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i != lc_count
+          puts "--[DroneNavy] #{DateTime.now}, fleet sent successful"
+          fleet1_page = final_page
+        else
+          raise '--[DroneNavy] no lc change'
+        end
+      rescue
+        Account.instance.login
+        fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+        retry
+      end
+    end
+
+  end
+
   def DroneNavy.send_fleet(from, to, mission, fleet, speed = 10, cargo = [0, 0, 0])
     retry_time = 3
     begin

@@ -4,7 +4,8 @@ module BlackEagle
 
   def BlackEagle.update_resource
     login_result = Account.instance.login
-
+    "Light Fighter 0\n"
+    fleet1_page.body.to_s[/Light Fighter (d*?)\n/, 1]
     puts login_result.body
     metal = eval(login_result.body.to_s[/metal":{"resources":(.*?),"tooltip":"Metal/, 1])
     Resource.find_by(name: "metal").update(available: metal[:actual], max: metal[:max], production: metal[:production])
