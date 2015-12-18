@@ -1,44 +1,50 @@
 module Captain
 
-  def Captain.one_order_loot(planet=:Megathron)
-    $PLANET = planet
+  def Captain.get_from
+    Preference.planet_index += 1
+    Preference.planet_index %= Preference.planet_buff.length
+    $PLANET = Preference.planet_buff[Preference.planet_index]
+  end
+
+  def Captain.one_order_loot
+    Captain.get_from
     start_at = Time.now
     begin
       # if Mode.find_by(name: "large_cargo_raid").value == 1
 
+      begin
+        puts "#{DateTime.now}, Captain.one_order_loot begin"
+        Account.instance.login
+      rescue
+        sleep 0.01
+        retry
+      end
+
+      positions = Archivist.get_positions(Archivist.options_close_idle_safe)
+      # Processor.instance.start
+      Captain.spy_i_on(positions, 1, 0.1)
+
+      sleep 50
+
+      begin
+        Journalist.report_espionage_messages(1, 10)
+      rescue
         begin
-          puts "#{DateTime.now}, Captain.one_order_loot begin"
           Account.instance.login
         rescue
-          sleep 0.01
           retry
         end
+        retry
+      end
 
-        positions = Archivist.get_positions(Archivist.options_close_idle_safe)
-        # Processor.instance.start
-        Captain.spy_i_on(positions, 1, 0.1)
+      # while Schdule.all != []
+      #   sleep 10
+      # end
+      # Processor.instance.stop
 
-        sleep 50
-
-        begin
-          Journalist.report_espionage_messages(1, 10)
-        rescue
-          begin
-            Account.instance.login
-          rescue
-            retry
-          end
-          retry
-        end
-
-        # while Schdule.all != []
-        #   sleep 10
-        # end
-        # Processor.instance.stop
-
-        positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..Preference.lc_fleet_count]
-        Captain.large_cargo_loot(positions)
-        sleep 0.01
+      positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..Preference.lc_fleet_count]
+      Captain.large_cargo_loot(positions)
+      sleep 0.01
 
       # end
     rescue => e
@@ -120,7 +126,7 @@ module Captain
         begin
           sleep 1
           puts "I'm rescue some big mistake"
-          puts e.backtrace.join("\n")i
+          puts e.backtrace.join("\n")
           Account.instance.login
         rescue
           retry
