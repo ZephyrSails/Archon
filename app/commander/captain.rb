@@ -1,6 +1,7 @@
 module Captain
 
-  def Captain.one_order_loot
+  def Captain.one_order_loot(planet=:Megathron)
+    $PLANET = planet
     start_at = Time.now
     begin
       # if Mode.find_by(name: "large_cargo_raid").value == 1
@@ -70,7 +71,7 @@ module Captain
   def Captain.spy_i_on(positions, number = 1, interval = 5)
     positions.each_with_index do |to, index|
       begin
-        from = "1:410:4"
+        from = Preference.planets[$PLANET][1]
         puts "[Captain] sending spy to #{to.position}, #{index} finished, #{positions.count-index} left"
         Captain.send_spy(from, to.position, number)
         sleep interval
@@ -106,20 +107,20 @@ module Captain
     positions.each_with_index do |to, index|
       begin
 
-        from = "1:410:4"
+        from = Preference.planets[$PLANET][1]
         fleet = Fleet.new
         fleet.large_cargo = to.need_large_cargo
 
         DroneNavy.send_fleet(from, to.position, :attack, fleet)
 
         to.update_farm_count
-        
+
       rescue => e
 
         begin
           sleep 1
           puts "I'm rescue some big mistake"
-          puts e.backtrace.join("\n")
+          puts e.backtrace.join("\n")i
           Account.instance.login
         rescue
           retry
