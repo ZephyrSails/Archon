@@ -87,11 +87,11 @@ module DroneNavy
       rescue => e
         sleep 1
         Account.instance.login
-        fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
-        # if e.message == "fleet_full"
-        #   puts "fleet_full"
-        # else
-        # end
+        begin
+          fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+        rescue
+          
+        end
         retry
       end
     end
