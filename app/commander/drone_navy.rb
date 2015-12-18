@@ -1,54 +1,100 @@
 module DroneNavy
 
-  def DroneNavy.send_lcs(from, positions, speed = 10, cargo = [0, 0, 0])
+  def DroneNavy.batch_send(from, positions, type="lc", speed = 10, cargo = [0, 0, 0])
+    slot_count = 13
     retry_time = 3
-    puts "[DroneNavy] #{DateTime.now}, begin to send lcs"
+    count_number = 0
 
-    fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+    begin
+      fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+      case type
+      when "lc"
+        ship_code = "am203"
+        ship_name = "Large Cargo"
+        mission = :attack
+      when "espi"
+        ship_code = "am210"
+        ship_name = "Espionage Probe"
+        mission = :espionage
+      end
+      start_with = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
+    rescue
+      puts "failed 1"
+      retry
+    end
 
-    positions.each do |to|
-        sleep 0.01
-        lc_count = fleet1_page.body.to_s[/Large Cargo\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
+    puts "[DroneNavy] #{DateTime.now}, begin to batch, start with: #{start_with}"
+    positions.each_with_index do |to, index|
+      sleep 0.01
+      case type
+      when "lc"
+        number_needed = to.need_large_cargo
+      when "espi"
+        number_needed = 1
+      end
+      begin
+        ship_count = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
+
+        if type == "espi"
+          slot_used = start_with - ship_count
+          while slot_used == slot_count
+            puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:slot full"
+            sleep 1
+            ship_count = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
+          end
+          puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 1, slot {#{slot_used}/#{slot_count}}"
+        else
+          puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 1, count #{number_needed}"
+        end
+
         ship_choosen_form = fleet1_page.form_with :name => "shipsChosen"
         # large_cargo = to.need_large_cargo
-        lc_needed = to.need_large_cargo
-        ship_choosen_form.field_with(:name => "am203").value = lc_needed
+        ship_choosen_form.field_with(:name => ship_code).value = number_needed
         ship_choosen_form.field_with(:name => "galaxy").value = from.split(":")[0].to_i
         ship_choosen_form.field_with(:name => "system").value = from.split(":")[1].to_i
         ship_choosen_form.field_with(:name => "position").value = from.split(":")[2].to_i
         ship_choosen_form.field_with(:name => "speed").value = speed
-        puts "--[DroneNavy] #{DateTime.now}, sending fleet, process 1 complished, dispatching #{lc_needed}"
 
+        fleet2_page = $AGENT.submit ship_choosen_form
         sleep 0.01
         details_form = fleet2_page.form_with :name => "details"
         details_form.field_with(:name => "mission").value = Settings.missions[mission]
         details_form.field_with(:name => "galaxy").value = to.position.split(":")[0].to_i
         details_form.field_with(:name => "system").value = to.position.split(":")[1].to_i
         details_form.field_with(:name => "position").value = to.position.split(":")[2].to_i
-        puts "--[DroneNavy] #{DateTime.now}, sending fleet, process 2 complished"
-      begin
+        puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 2"
+
         fleet3_page = $AGENT.submit details_form
         sleep 0.01
         sending_form = fleet3_page.form_with :name => "sendForm"
         sending_form.field_with(:name => "metal").value = cargo[0]
         sending_form.field_with(:name => "crystal").value = cargo[1]
         sending_form.field_with(:name => "deuterium").value = cargo[2]
-        puts "--[DroneNavy] #{DateTime.now}, sending fleet, process 3 complished"
         final_page = $AGENT.submit sending_form
+        count_number = final_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
 
-        if final_page.body.to_s[/Large Cargo\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i != lc_count
-          puts "--[DroneNavy] #{DateTime.now}, fleet sent successful"
+        if count_number != ship_count
+          puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: #{ship_count}=>#{count_number} fleet sent successful"
           fleet1_page = final_page
-        else
-          raise '--[DroneNavy] no lc change'
+          if type != "espi"
+            to.update_farm_count
+          end
+        elsif type != "espi"
+          puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: #{ship_count}=>#{count_number} something wrong"
+          raise "fleet_full"
         end
-      rescue
+      rescue => e
+        sleep 1
         Account.instance.login
         fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+        # if e.message == "fleet_full"
+        #   puts "fleet_full"
+        # else
+        # end
         retry
       end
     end
-
+    puts "#{start_with}=>#{count_number}"
   end
 
   def DroneNavy.send_fleet(from, to, mission, fleet, speed = 10, cargo = [0, 0, 0])

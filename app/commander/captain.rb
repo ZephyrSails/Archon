@@ -7,43 +7,32 @@ module Captain
   end
 
   def Captain.one_order_loot
-    Captain.get_from
+    # Captain.get_from
+    $PLANET = :Megathron
     start_at = Time.now
     begin
       # if Mode.find_by(name: "large_cargo_raid").value == 1
 
-      begin
-        puts "#{DateTime.now}, Captain.one_order_loot begin"
-        Account.instance.login
-      rescue
-        sleep 0.01
-        retry
-      end
+      puts "#{DateTime.now}, Captain.one_order_loot begin"
+      Account.instance.login
 
       positions = Archivist.get_positions(Archivist.options_close_idle_safe)
       # Processor.instance.start
-      Captain.spy_i_on(positions, 1, 0.1)
+      DroneNavy.batch_send(Preference.planets[$PLANET][1], positions, "espi")
+      # Captain.spy_i_on(positions, 1, 0.1)
 
       sleep 50
 
       begin
         Journalist.report_espionage_messages(1, 10)
       rescue
-        begin
-          Account.instance.login
-        rescue
-          retry
-        end
+        Account.instance.login
         retry
       end
 
-      # while Schdule.all != []
-      #   sleep 10
-      # end
-      # Processor.instance.stop
-
       positions = (Archivist.get_positions(Archivist.options_close_idle_safe).sort_by &:resource_value).reverse[0..Preference.lc_fleet_count]
-      Captain.large_cargo_loot(positions)
+      DroneNavy.batch_send(Preference.planets[$PLANET][1], positions, "lc")
+
       sleep 0.01
 
       # end
@@ -123,14 +112,7 @@ module Captain
 
       rescue => e
 
-        begin
-          sleep 1
-          puts "I'm rescue some big mistake"
-          puts e.backtrace.join("\n")
-          Account.instance.login
-        rescue
-          retry
-        end
+        Account.instance.login
 
         retry
       end
