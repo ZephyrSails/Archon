@@ -14,7 +14,7 @@ class Account
     login_form.field_with(:name => "pass").value = empire.pass
     login_form.field_with(:name => "uni").value = "#{empire.galaxy.code}.ogame.gameforge.com"
     login_result = $AGENT.submit login_form
-    "http://s131-en.ogame.gameforge.com/game/index.php?page=overview&cp=#{Preference.planets[$PLANET][0]}"
+    # "http://s131-en.ogame.gameforge.com/game/index.php?page=overview&cp=#{Preference.planets[$PLANET][0]}"
     puts "login success"
   end
 
