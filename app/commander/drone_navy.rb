@@ -19,6 +19,7 @@ module DroneNavy
       end
       start_with = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
     rescue
+      Account.instance.login
       puts "failed 1"
       retry
     end
