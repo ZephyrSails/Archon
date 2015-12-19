@@ -33,7 +33,7 @@ every 2.hours do
 end
 
 set :output, "auctioneer_cron_log.log"
-every '50 * * * *' do
+every '30 * * * *' do
   runner "Merchant.auction"
   # runner "puts 1"
 end
