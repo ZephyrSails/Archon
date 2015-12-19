@@ -6,6 +6,10 @@ class Planet < ActiveRecord::Base
   has_one :facility, dependent: :destroy
   has_many :fleets, dependent: :destroy
 
+  def distance_to(to)
+    return Abacus.get_distance(self.position, to)
+  end
+
   def update_farm_count
     if self.farm_count == nil
       self.farm_count = 1

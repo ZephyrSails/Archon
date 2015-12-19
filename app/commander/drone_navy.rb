@@ -1,7 +1,8 @@
 module DroneNavy
 
-  def DroneNavy.batch_send(from, positions, type="lc", speed = 10, cargo = [0, 0, 0])
-    slot_count = 13
+  def DroneNavy.batch_send(positions, type="lc", speed = 10, cargo = [0, 0, 0])
+    from = Preference.planets[$PLANET][1]
+    slot_count = Preference.free_slot
     retry_time = 3
     count_number = 0
 

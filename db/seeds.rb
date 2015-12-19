@@ -19,3 +19,4 @@ Preference.planets = {  Megathron:  [33716708, "1:410:4"],
                       }
 Preference.planet_buff = [:Megathron, :Dominix]
 Preference.planet_index = 0
+Preference.free_slot = 13
