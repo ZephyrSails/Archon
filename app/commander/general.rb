@@ -36,7 +36,7 @@ module General
     # page = $AGENT.get(Settings.pages.movement)
     fleet_count = []
 
-    tooltip advice
+    # tooltip advice
     current_fleet = page.search("span.tooltip.advice").text[/Fleets: (.*?)\n/, 1].split("/")[0].to_i
     fleet_slot = page.search("span.tooltip.advice").text[/Fleets: (.*?)\n/, 1].split("/")[1].to_i
     $CURRENT_FLEET = [current_fleet, fleet_slot]
