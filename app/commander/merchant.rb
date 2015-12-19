@@ -2,9 +2,12 @@ module Merchant
 
   def Merchant.auction
     $PLANET = :Megathron
+
     # Settings.reload!
     # while true
+    puts "[Merchant] time to bid"
     begin
+      Account.instance.login
       report = Merchant.watch_market
       puts "[Merchant] market_report #{report} #{DateTime.now}"
       if report[:status]
@@ -41,7 +44,7 @@ module Merchant
   end
 
   def Merchant.watch_market
-    Account.instance.login
+
     auction = $AGENT.post(Settings.pages.trader_overview, {"show" => "auctioneer","ajax"=>"1"})
     status = auction.search("div.left_header h2").text
 
