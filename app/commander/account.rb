@@ -21,8 +21,10 @@ class Account
         $AGENT.get "#{Settings.pages.overview}&cp=#{Preference.planets[$PLANET][0]}"
       end
       puts "login success"
-    rescue
+    rescue => e
       puts "login failed"
+      puts e.message
+      puts e.backtrace.join("\n")
       sleep 1
       retry
     end
