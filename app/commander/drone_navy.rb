@@ -46,7 +46,7 @@ module DroneNavy
             puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:slot full, slot {#{$CURRENT_FLEET[0]}/#{$CURRENT_FLEET[1]}}"
             sleep 2
             fleet1_page = $AGENT.get Settings.pages.fleet_1
-            # ship_count = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
+
             General.count_fleet_alt(fleet1_page)
           end
           fleet1_page = $AGENT.get Settings.pages.fleet_1
@@ -93,9 +93,13 @@ module DroneNavy
         end
 
       rescue => e
-        puts e.message
-        sleep 1
-        Account.instance.login
+        if ship_count == 0
+          sleep 2
+        else
+          puts e.message
+          sleep 1
+          Account.instance.login
+        end
         begin
           fleet1_page = $AGENT.get Settings.pages.fleet_1
         rescue
@@ -105,6 +109,18 @@ module DroneNavy
       end
     end
     puts "#{start_with}=>#{count_number}"
+  end
+
+  def DroneNavy.lc_delivery(from=:Dominix, to=:Megathron)
+
+    fleet = Fleet.new
+    fleet.large_cargo = 9999
+    from = Preference.planets[from][1]
+    to = Preference.planets[to][1]
+    mission = :transport
+    cargo = [999999999,999999999,999999999]
+    DroneNavy.send_fleet(from, to, mission, fleet, 10, cargo)
+
   end
 
 

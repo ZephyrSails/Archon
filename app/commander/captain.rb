@@ -34,8 +34,6 @@ module Captain
       DroneNavy.batch_send(positions, "lc")
 
       sleep 0.01
-
-      # end
     rescue => e
       puts "Somgthing VERY BAD just happend"
       puts "I choose to death"
@@ -44,6 +42,10 @@ module Captain
     end
     end_at = Time.now
     puts "Captain.one_order_loot Completed at #{DateTime.now}, time used: #{(end_at-start_at).round(1)} seconds"
+
+    if $PLANET = :Dominix
+      DroneNavy.lc_delivery(:Dominix, :Megathron)
+    end
   end
 
   # $PLANET = :Megathron
