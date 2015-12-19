@@ -1,6 +1,7 @@
 module Merchant
 
   def Merchant.auction
+    $PLANET = :Megathron
     # Settings.reload!
     # while true
     begin
