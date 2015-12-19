@@ -23,6 +23,7 @@
 # whenever --update-crontab --set environment='development'
 # whenever -c
 # crontab -l
+
 set :output, "/home/zephyr/code/Archon/cron_log.log"
 every 2.hours do
   # runner "puts #{Time.now}"

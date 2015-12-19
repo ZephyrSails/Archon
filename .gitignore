@@ -22,3 +22,4 @@ config/environments/*.local.yml
 
 /mech.log
 /cron.log
+/*.log
