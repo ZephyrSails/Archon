@@ -23,7 +23,9 @@ module General
     page = $AGENT.get("http://s131-en.ogame.gameforge.com/game/index.php?page=movement")
     fleet_count = []
 
-    $CURRENT_FLEET = page.search("span.fleetSlots").search("span.current")
+    current_fleet = page.search("span.fleetSlots").search("span.current").text.to_i
+    fleet_slot = fleet_count[1] = page.search("span.fleetSlots").search("span.all").text.to_i
+    $CURRENT_FLEET = [current_fleet, fleet_slot]
     # fleet_count[1] = page.search("span.fleetSlots").search("span.all")
 
     return $CURRENT_FLEET

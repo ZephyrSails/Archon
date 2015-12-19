@@ -6,7 +6,8 @@ class Planet < ActiveRecord::Base
   has_one :facility, dependent: :destroy
   has_many :fleets, dependent: :destroy
 
-  def distance_to(to)
+  def distance_to_basement
+    to = Preference.planets[$PLANET][1]
     return Abacus.get_distance(self.position, to)
   end
 

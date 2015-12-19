@@ -47,7 +47,7 @@ module Captain
   end
 
   def Captain.spy_i_on(positions)
-    positions.sort_by &:distance_to Preference.planets[$PLANET][1]
+    (positions.sort_by &:distance_to_basement).reverse
     DroneNavy.batch_send(positions, "espi")
 
     sleep 50
