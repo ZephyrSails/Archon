@@ -43,9 +43,10 @@ module DroneNavy
           General.count_fleet
           while $CURRENT_FLEET[0] == $CURRENT_FLEET[1]
           # while slot_used == slot_count
-            puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:slot full"
+            puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:slot full, slot {#{$CURRENT_FLEET[0]}/#{$CURRENT_FLEET[1]}}"
             sleep 2
             ship_count = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
+            General.count_fleet
           end
           fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
           puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 1, slot {#{$CURRENT_FLEET[0]}/#{$CURRENT_FLEET[1]}}"
