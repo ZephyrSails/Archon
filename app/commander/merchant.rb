@@ -19,7 +19,7 @@ module Merchant
           puts "[Merchant] bid failed #{result}"
         end
       else
-        if report[:time_left] < 3000
+        if report[:time_left] < 1500
           puts "[Merchant] wait #{report[:time_left]} sec auction open, last_win #{report[:high_bider]}"
           sleep(report[:time_left] + 8)
           raise "wakeup"

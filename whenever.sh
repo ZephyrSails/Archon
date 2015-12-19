@@ -1,12 +1,12 @@
 #!/bin/bash
-if [ "$1" = "develop" ];then
+if [ "$1" = "dev" ];then
 echo "running: whenever --update-crontab --set environment='development'"
 whenever --update-crontab --set environment='development'
 echo "running: crontab -l"
 crontab -l
 fi
 
-if [ "$1" = "production" ];then
+if [ "$1" = "restart" ];then
 echo "running: whenever --update-crontab"
 whenever --update-crontab
 echo "running: crontab -l"
