@@ -34,6 +34,6 @@ end
 
 set :output, "/home/zephyr/code/Archon/auctioneer_cron_log.log"
 every '30 * * * *' do
-  Merchant.auction
+  runner "Merchant.auction"
   # runner "puts 1"
 end
