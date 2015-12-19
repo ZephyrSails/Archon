@@ -81,16 +81,22 @@ module DroneNavy
         final_page = $AGENT.submit sending_form
         count_number = final_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
 
-        if count_number != ship_count
-          puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: #{ship_count}=>#{count_number} fleet sent successful"
-          fleet1_page = final_page
-          if type != "espi"
-            to.update_farm_count
-          end
-        elsif type != "espi"
-          puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: #{ship_count}=>#{count_number} something wrong"
-          # raise ""
+        puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: #{ship_count}=>#{count_number} fleet sent successful"
+        fleet1_page = final_page
+        if type != "espi"
+          to.update_farm_count
         end
+
+        # if count_number != ship_count
+        #   puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: #{ship_count}=>#{count_number} fleet sent successful"
+        #   fleet1_page = final_page
+        #   if type != "espi"
+        #     to.update_farm_count
+        #   end
+        # elsif type != "espi"
+        #   puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: #{ship_count}=>#{count_number} something wrong"
+        #   # raise ""
+        # end
 
       rescue => e
         if ship_count == 0

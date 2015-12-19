@@ -23,6 +23,7 @@ class Account
       puts "login success"
     rescue
       puts "login failed"
+      sleep 1
       retry
     end
   end
