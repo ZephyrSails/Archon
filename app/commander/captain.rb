@@ -43,7 +43,7 @@ module Captain
     end_at = Time.now
     puts "Captain.one_order_loot Completed at #{DateTime.now}, time used: #{(end_at-start_at).round(1)} seconds"
 
-    if $PLANET = :Dominix
+    if $PLANET == :Dominix
       DroneNavy.lc_delivery(:Dominix, :Megathron)
     end
   end
