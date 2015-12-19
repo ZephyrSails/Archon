@@ -96,7 +96,9 @@ module Merchant
       else # too risky
         return [2, bid]
       end
-    rescue
+    rescue => e
+      puts e.message
+      puts e.backtrace.join("\n")
       return [-1, bid]
     end
     # "bid[planets][33716708][metal]" => 2000

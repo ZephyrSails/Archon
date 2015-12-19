@@ -1,5 +1,4 @@
 apis:
-  page_fleet_1: "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
   players: "http://s131-en.ogame.gameforge.com/api/players.xml"
   player: "http://s131-en.ogame.gameforge.com/api/playerData.xml?id="
   planets: "http://s131-en.ogame.gameforge.com/api/universe.xml"
@@ -8,7 +7,9 @@ apis:
   alliances: "http://s131-en.ogame.gameforge.com/api/alliances.xml"
   server: "http://s131-en.ogame.gameforge.com/api/serverData.xml"
   auctioneer: "http://s131-en.ogame.gameforge.com/game/index.php?page=traderOverview"
-  # page_fleet_2: "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+
+pages:
+  page_fleet_1: "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
 
 score_type:
   0: "score"
