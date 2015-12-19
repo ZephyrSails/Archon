@@ -40,13 +40,14 @@ module DroneNavy
 
         if type == "espi"
           slot_used = start_with - ship_count
-          General.count_fleet
+          General.count_fleet_alt(fleet1_page)
           while $CURRENT_FLEET[0] == $CURRENT_FLEET[1]
           # while slot_used == slot_count
             puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:slot full, slot {#{$CURRENT_FLEET[0]}/#{$CURRENT_FLEET[1]}}"
             sleep 2
-            ship_count = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
-            General.count_fleet
+            fleet1_page = $AGENT.get Settings.pages.fleet_1
+            # ship_count = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
+            General.count_fleet_alt(fleet1_page)
           end
           fleet1_page = $AGENT.get Settings.pages.fleet_1
           puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 1, slot {#{$CURRENT_FLEET[0]}/#{$CURRENT_FLEET[1]}}"
