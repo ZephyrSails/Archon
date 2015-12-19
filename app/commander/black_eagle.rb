@@ -69,7 +69,7 @@ module BlackEagle
 
   # rails runner "BlackEagle.weekly_update_galaxy"
   def BlackEagle.update_universe
-    Settings.reload!
+    # Settings.reload!
     $AGENT = Mechanize.new
     rank_page = $AGENT.get Settings.apis.players
     players_page = $AGENT.get Settings.apis.players
