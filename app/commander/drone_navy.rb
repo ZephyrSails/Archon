@@ -7,7 +7,7 @@ module DroneNavy
     count_number = 0
 
     begin
-      fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+      fleet1_page = $AGENT.get Settings.apis.page_fleet_1
       case type
       when "lc"
         ship_code = "am203"
@@ -48,7 +48,7 @@ module DroneNavy
             ship_count = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
             General.count_fleet
           end
-          fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+          fleet1_page = $AGENT.get Settings.apis.page_fleet_1
           puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 1, slot {#{$CURRENT_FLEET[0]}/#{$CURRENT_FLEET[1]}}"
         else
           puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 1, count #{number_needed}"
@@ -92,10 +92,11 @@ module DroneNavy
         end
 
       rescue => e
+        puts e.message
         sleep 1
         Account.instance.login
         begin
-          fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+          fleet1_page = $AGENT.get Settings.apis.page_fleet_1
         rescue
 
         end
@@ -105,11 +106,18 @@ module DroneNavy
     puts "#{start_with}=>#{count_number}"
   end
 
+
+
+
+
+
+
+
   def DroneNavy.send_fleet(from, to, mission, fleet, speed = 10, cargo = [0, 0, 0])
     retry_time = 3
     begin
       puts "[DroneNavy] #{DateTime.now}, begin to send_fleet to #{to}"
-      fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+      fleet1_page = $AGENT.get Settings.apis.page_fleet_1
       sleep 0.01
       ship_choosen_form = fleet1_page.form_with :name => "shipsChosen"
       for i in 202..215

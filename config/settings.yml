@@ -6,6 +6,8 @@ apis:
   rank_all: "http://s131-en.ogame.gameforge.com/api/highscore.xml"
   alliances: "http://s131-en.ogame.gameforge.com/api/alliances.xml"
   server: "http://s131-en.ogame.gameforge.com/api/serverData.xml"
+  page_fleet_1: "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+
 
 score_type:
   0: "score"
