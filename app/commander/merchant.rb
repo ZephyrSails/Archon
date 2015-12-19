@@ -4,7 +4,7 @@ module Merchant
     # while true
     begin
       report = Merchant.watch_market
-      puts "[Merchant] market_report #{report}"
+      puts "[Merchant] market_report #{report} #{DateTime.now}"
       if report[:status]
         puts "[Merchant] wait #{report[:time_left]} sec before bid"
         sleep report[:time_left]
