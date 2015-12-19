@@ -50,7 +50,7 @@ module Merchant
     # time_left
     if status == "Auctions in progress"
       time_left = (auction.search("p.auction_info").text[/\d+/].to_i) * 60
-      time_left = [time_left - 240, 0].max
+      time_left = [time_left - 266, 0].max
       auction_on = true
     elsif status == "Auction completed"
       time_left = auction.search("p.auction_info span.nextAuction").text.to_i
