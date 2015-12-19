@@ -28,7 +28,7 @@ module Merchant
         end
       end
     rescue => e
-      if e.message = "wakeup"
+      if e.message == "wakeup"
         retry
       else
         puts e.message
