@@ -1,6 +1,7 @@
 module Merchant
 
   def Merchant.auction
+    Settings.reload!
     # while true
     begin
       report = Merchant.watch_market

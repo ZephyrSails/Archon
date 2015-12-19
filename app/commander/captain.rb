@@ -7,6 +7,8 @@ module Captain
   end
 
   def Captain.one_order_loot
+    Settings.reload!
+    
     Captain.get_from
     # $PLANET = :Megathron
     start_at = Time.now
