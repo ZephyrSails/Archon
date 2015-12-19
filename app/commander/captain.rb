@@ -46,9 +46,9 @@ module Captain
     puts "Captain.one_order_loot Completed at #{DateTime.now}, time used: #{(end_at-start_at).round(1)} seconds"
   end
 
-  # $PLANET = :Megathron
-  # options = Archivist.optins_idle_gala("1", 100)
-  # positions = Archivist.get_positions(options)
+  $PLANET = :Megathron
+  options = Archivist.optins_idle_gala("1", 100)
+  positions = Archivist.get_positions(options)
   def Captain.spy_i_on(positions)
     positions = (positions.sort_by &:distance_to_basement).reverse
     DroneNavy.batch_send(positions, "espi")

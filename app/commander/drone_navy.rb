@@ -1,6 +1,6 @@
 module DroneNavy
 
-  def DroneNavy.batch_send(positions, type="lc", speed = 10, cargo = [0, 0, 0])
+  def DroneNavy.batch_send(positions, type="lc", espi_number=1, speed = 10, cargo = [0, 0, 0])
     from = Preference.planets[$PLANET][1]
     slot_count = Preference.free_slot
     retry_time = 3
@@ -33,7 +33,7 @@ module DroneNavy
       when "lc"
         number_needed = to.need_large_cargo
       when "espi"
-        number_needed = 1
+        number_needed = espi_number
       end
       begin
         ship_count = fleet1_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i

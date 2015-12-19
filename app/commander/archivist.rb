@@ -76,6 +76,36 @@ module Archivist
     }
   end
 
+  # Archivist.get_positions(options)
+  def Archivist.gala_farm_spy1(galaxy = "1", eco_score = 100)
+    options = {
+      is_idle?: [true],
+      get_galaxy: [galaxy],
+      is_safe_to_espionage_unknow?: [true],
+      has_more_economy_score?: [true, eco_score]
+    }
+  end
+  def Archivist.gala_farm_spy2(galaxy = "1", eco_score = 100)
+    options = {
+      is_idle?: [true],
+      get_galaxy: [galaxy],
+      is_defence_unknow?: [true],
+      is_safe_to_espionage?: [true],
+      has_more_economy_score?: [true, eco_score]
+    }
+  end
+  def Archivist.gala_farm_spy3(duration=3150, speed=16500, eco_score=100, from=Preference.planets[$PLANET][1])
+    options = {
+      is_idle?: [true],
+      get_galaxy: ["1"],
+      # is_less_flight_time?: [true, from, speed, duration],
+      is_defence_unknow?: [true],
+      has_more_economy_score?: [true, eco_score]
+    }
+  end
+
+
+
   def Archivist.optins_idle_gala(galaxy = "1", eco_score = 100)
     options = {
       is_idle?: [true],

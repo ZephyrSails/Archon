@@ -32,8 +32,8 @@ module Commander
 
     config.time_zone = "Beijing"
 
-    Settings.reload!
     config.after_initialize do
+      Settings.reload!
 
       if ENV['server_mode']
 
