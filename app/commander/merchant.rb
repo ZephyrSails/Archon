@@ -40,7 +40,7 @@ module Merchant
 
   def Merchant.watch_market
     Account.instance.login
-    auction = $AGENT.post("http://s131-en.ogame.gameforge.com/game/index.php?page=traderOverview", {"show" => "auctioneer","ajax"=>"1"})
+    auction = $AGENT.post(Settings.pages.trader_overview, {"show" => "auctioneer","ajax"=>"1"})
     status = auction.search("div.left_header h2").text
 
     bid_number = auction.search("div.numberOfBids").text.to_i
@@ -75,7 +75,7 @@ module Merchant
   def Merchant.bid
     begin
       Account.instance.login
-      auction = $AGENT.post("http://s131-en.ogame.gameforge.com/game/index.php?page=traderOverview", {"show" => "auctioneer","ajax"=>"1"})
+      auction = $AGENT.post(Settings.pages.trader_overview, {"show" => "auctioneer","ajax"=>"1"})
       status = auction.search("div.left_header h2").text
       current_sum = auction.search("div.currentSum").text.gsub(".", "").to_i
       my_bid = auction.search("td.js_alreadyBidden").text.gsub(".", "").to_i
@@ -89,7 +89,7 @@ module Merchant
           "token" => auctioneerToken,
           "ajax" => 1
         }
-        bid_result = $AGENT.post("http://s131-en.ogame.gameforge.com/game/index.php?page=auctioneer", form)
+        bid_result = $AGENT.post(Settings.pages.auctioneer, form)
         return [0, bid]
       elsif status == "Auction completed"
         return [1, current_sum]

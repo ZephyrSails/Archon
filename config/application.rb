@@ -5,6 +5,8 @@ require 'rails/all'
 require 'mechanize'
 require 'logger'
 
+# register Config
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -33,7 +35,9 @@ module Commander
     config.time_zone = "Beijing"
 
     config.after_initialize do
+      puts "reload settings"
       Settings.reload!
+
 
       if ENV['server_mode']
 

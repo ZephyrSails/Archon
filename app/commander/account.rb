@@ -18,7 +18,7 @@ class Account
       login_result = $AGENT.submit login_form
       if $PLANET != nil
         puts "going to #{$PLANET}"
-        $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=overview&cp=#{Preference.planets[$PLANET][0]}"
+        $AGENT.get "#{Settings.pages.overview}&cp=#{Preference.planets[$PLANET][0]}"
       end
       puts "login success"
     rescue

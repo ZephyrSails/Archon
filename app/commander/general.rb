@@ -20,7 +20,7 @@ module General
   end
 
   def General.count_fleet
-    page = $AGENT.get("http://s131-en.ogame.gameforge.com/game/index.php?page=movement")
+    page = $AGENT.get(Settings.pages.movement)
     fleet_count = []
 
     current_fleet = page.search("span.fleetSlots").search("span.current").text.to_i

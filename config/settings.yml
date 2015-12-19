@@ -6,10 +6,14 @@ apis:
   rank_all: "http://s131-en.ogame.gameforge.com/api/highscore.xml"
   alliances: "http://s131-en.ogame.gameforge.com/api/alliances.xml"
   server: "http://s131-en.ogame.gameforge.com/api/serverData.xml"
-  auctioneer: "http://s131-en.ogame.gameforge.com/game/index.php?page=traderOverview"
+
 
 pages:
-  page_fleet_1: "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+  fleet_1: "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
+  trader_overview: "http://s131-en.ogame.gameforge.com/game/index.php?page=traderOverview"
+  auctioneer: "http://s131-en.ogame.gameforge.com/game/index.php?page=auctioneer"
+  movement: "http://s131-en.ogame.gameforge.com/game/index.php?page=movement"
+  overview: "http://s131-en.ogame.gameforge.com/game/index.php?page=overview"
 
 score_type:
   0: "score"
@@ -59,4 +63,4 @@ s131:
   pages:
     messages: "http://s131-en.ogame.gameforge.com/game/index.php?page=messages"
 
-unknow: null
+# unknow: null
