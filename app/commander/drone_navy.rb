@@ -27,6 +27,7 @@ module DroneNavy
     puts "[DroneNavy] #{DateTime.now}, begin to batch, start with: #{start_with}"
     positions.each_with_index do |to, index|
       sleep 0.01
+      # 2015-12-19 08:09:24
       case type
       when "lc"
         number_needed = to.need_large_cargo
@@ -63,7 +64,7 @@ module DroneNavy
         details_form.field_with(:name => "galaxy").value = to.position.split(":")[0].to_i
         details_form.field_with(:name => "system").value = to.position.split(":")[1].to_i
         details_form.field_with(:name => "position").value = to.position.split(":")[2].to_i
-        puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 2"
+        puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 2, to #{to.position}"
 
         fleet3_page = $AGENT.submit details_form
         sleep 0.01
@@ -82,15 +83,16 @@ module DroneNavy
           end
         elsif type != "espi"
           puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: #{ship_count}=>#{count_number} something wrong"
-          raise "fleet_full"
+          # raise ""
         end
+
       rescue => e
         sleep 1
         Account.instance.login
         begin
           fleet1_page = $AGENT.get "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"
         rescue
-          
+
         end
         retry
       end
