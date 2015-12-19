@@ -7,8 +7,8 @@ module Captain
   end
 
   def Captain.one_order_loot
-    # Captain.get_from
-    $PLANET = :Megathron
+    Captain.get_from
+    # $PLANET = :Megathron
     start_at = Time.now
     begin
       # if Mode.find_by(name: "large_cargo_raid").value == 1
