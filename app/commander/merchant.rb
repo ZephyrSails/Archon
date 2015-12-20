@@ -91,6 +91,27 @@ module Merchant
 
         form = {
           "bid[planets][33716708][metal]" => bid,
+          "bid[planets][33716708][crystal]" => 0,
+          "bid[planets][33716708][deuterium]" => 0,
+          "bid[planets][33717412][metal]" => 0,
+          "bid[planets][33717412][crystal]" => 0,
+          "bid[planets][33717412][deuterium]" => 0,
+          "bid[planets][33717581][metal]" => 0,
+          "bid[planets][33717581][crystal]" => 0,
+          "bid[planets][33717581][deuterium]" => 0,
+          "bid[planets][33719025][metal]" => 0,
+          "bid[planets][33719025][crystal]" => 0,
+          "bid[planets][33719025][deuterium]" => 0,
+          "bid[planets][33719845][metal]" => 0,
+          "bid[planets][33719845][crystal]" => 0,
+          "bid[planets][33719845][deuterium]" => 0,
+          "bid[planets][33720592][metal]" => 0,
+          "bid[planets][33720592][crystal]" => 0,
+          "bid[planets][33720592][deuterium]" => 0,
+          "bid[planets][33720852][metal]" => 0,
+          "bid[planets][33720852][crystal]" => 0,
+          "bid[planets][33720852][deuterium]" => 0,
+          "bid[honor]" => 0,
           "token" => auctioneerToken,
           "ajax" => 1
         }
