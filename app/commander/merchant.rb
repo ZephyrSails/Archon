@@ -116,7 +116,11 @@ module Merchant
           "ajax" => 1
         }
         bid_result = $AGENT.post(Settings.pages.auctioneer, form)
-        return [0, bid]
+
+        auction = $AGENT.post(Settings.pages.trader_overview, {"show" => "auctioneer","ajax"=>"1"})
+        my_bid = auction.search("td.js_alreadyBidden").text.gsub(".", "").to_i
+
+        return [0, my_bid]
       elsif status == "Auction completed"
         return [1, current_sum]
       else # too risky
