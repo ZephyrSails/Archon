@@ -7,6 +7,10 @@ apis:
   alliances: "http://s131-en.ogame.gameforge.com/api/alliances.xml"
   server: "http://s131-en.ogame.gameforge.com/api/serverData.xml"
 
+range:
+  Megathron:  [ 410, 313, 492, 97 ]
+  Dominix:    [ 216, 145, 313, 71 ]
+  Vexor:      [  74, 492, 145, 81 ]
 
 pages:
   fleet_1: "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"

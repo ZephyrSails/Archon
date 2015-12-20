@@ -107,7 +107,7 @@ class Planet < ActiveRecord::Base
   end
 
   def is_safe?
-    if self.defence_value == 0 and self.counter_espionage == 0
+    if self.defence_value == 0 and self.fleets_value == 0
       return true
     else
       return false
@@ -117,7 +117,6 @@ class Planet < ActiveRecord::Base
   def Planet.get_by_pos(position)
     return Planet.find_by(position: position)
   end
-
 
 
 end
