@@ -135,8 +135,8 @@ module DroneNavy
     metal = eval(login_result.body.to_s[/metal":{"resources":(.*?),"tooltip":"Metal/, 1])[:actual]
     crystal = eval(login_result.body.to_s[/crystal":{"resources":(.*?),"tooltip":"Crystal/, 1])[:actual]
     deuterium = eval(login_result.body.to_s[/deuterium":{"resources":(.*?),"tooltip":"Deuterium/, 1])[:actual]
-    fleet.large_cargo = ((metal+crystal+deuterium-64000) / 25000) + 1
-    cargo = [metal,crystal,deuterium - 64000]
+    fleet.large_cargo = ((metal+crystal+deuterium-100000) / 25000) + 1
+    cargo = [metal,crystal,deuterium - 100000]
     DroneNavy.send_fleet(from, to, mission, fleet, 10, cargo)
 
   end
