@@ -135,9 +135,8 @@ module DroneNavy
     metal = eval(login_result.body.to_s[/metal":{"resources":(.*?),"tooltip":"Metal/, 1])[:actual]
     crystal = eval(login_result.body.to_s[/crystal":{"resources":(.*?),"tooltip":"Crystal/, 1])[:actual]
     deuterium = eval(login_result.body.to_s[/deuterium":{"resources":(.*?),"tooltip":"Deuterium/, 1])[:actual]
-    fleet.large_cargo = ((metal+crystal+deuterium-50000) / 25000) + 1
-    cargo = [metal,crystal,deuterium - 50000]
-
+    fleet.large_cargo = ((metal+crystal+deuterium-64000) / 25000) + 1
+    cargo = [metal,crystal,deuterium - 64000]
     DroneNavy.send_fleet(from, to, mission, fleet, 10, cargo)
 
   end
@@ -146,7 +145,7 @@ module DroneNavy
   def DroneNavy.send_fleet(from, to, mission, fleet, speed = 10, cargo = [0, 0, 0])
     retry_time = 7
     begin
-      puts "[DroneNavy] #{DateTime.now}, begin to send_fleet to #{to}"
+      puts "[DroneNavy] #{DateTime.now}, #{mission} to #{to}, cargo: #{cargo}"
       fleet1_page = $AGENT.get Settings.pages.fleet_1
       sleep 0.01
       ship_choosen_form = fleet1_page.form_with :name => "shipsChosen"
