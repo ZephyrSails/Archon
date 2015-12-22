@@ -130,12 +130,14 @@ module DroneNavy
     to = Preference.planets[to][1]
     mission = :transport
     # cargo = [999999999,999999999,999999999]
-
-    login_result = Account.instance.login
+    # $PLANET = $LAST_PLANET
+    login_result = $AGENT.get "#{Settings.pages.fleet_1}&cp=#{Preference.planets[$LAST_PLANET][0]}"
     metal = eval(login_result.body.to_s[/metal":{"resources":(.*?),"tooltip":"Metal/, 1])[:actual]
     crystal = eval(login_result.body.to_s[/crystal":{"resources":(.*?),"tooltip":"Crystal/, 1])[:actual]
     deuterium = eval(login_result.body.to_s[/deuterium":{"resources":(.*?),"tooltip":"Deuterium/, 1])[:actual]
-    cargo = [999999999,999999999,deuterium - 50000]
+    fleet.large_cargo = ((metal+crystal+deuterium-50000) / 25000) + 1
+    cargo = [metal,crystal,deuterium - 50000]
+
     DroneNavy.send_fleet(from, to, mission, fleet, 10, cargo)
 
   end
