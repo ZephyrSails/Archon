@@ -130,12 +130,6 @@ module DroneNavy
   end
 
 
-
-
-
-
-
-
   def DroneNavy.send_fleet(from, to, mission, fleet, speed = 10, cargo = [0, 0, 0])
     retry_time = 3
     begin

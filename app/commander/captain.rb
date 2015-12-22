@@ -1,14 +1,7 @@
 module Captain
 
-  def Captain.get_from
-    Preference.planet_index += 1
-    Preference.planet_index %= Preference.planet_buff.length
-    $PLANET = Preference.planet_buff[Preference.planet_index]
-  end
-
   def Captain.one_order_loot
     # Settings.reload!
-
     Captain.get_from
     # $PLANET = :Megathron
     start_at = Time.now
@@ -45,12 +38,31 @@ module Captain
     end_at = Time.now
     puts "Captain.one_order_loot Completed at #{DateTime.now}, time used: #{(end_at-start_at).round(1)} seconds"
 
-    if $PLANET == :Dominix
-      DroneNavy.lc_delivery(:Dominix, :Megathron)
+    if $LAST_PLANET != :Megathron
+      DroneNavy.lc_delivery($LAST_PLANET, :Megathron)
     end
   end
 
+  def Captain.get_from
+    $LAST_PLANET = Preference.planet_buff[Preference.planet_index]
+    Preference.planet_index += 1
+    Preference.planet_index %= Preference.planet_buff.length
+    $PLANET = Preference.planet_buff[Preference.planet_index]
+  end
+
+  # def Captain.lc_cercle
+  #   current_index = Preference.planet_index += 1
+  #   index_length = Preference.planet_buff.length
+  #   last_index = (current_index + index_length-1) % index_length
+  #   last_planet = Preference.planet_buff[last_index]
+  #
+  #   return last_planet
+  #
+  #
+  # end
+
   # $PLANET = :Megathron
+  # options = Archivist.gala_farm_spy1 "1"
   # options = Archivist.gala_farm_spy2
   # positions = Archivist.get_positions(options)
   def Captain.spy_i_on(positions, number=1)
