@@ -144,7 +144,7 @@ module DroneNavy
 
 
   def DroneNavy.send_fleet(from, to, mission, fleet, speed = 10, cargo = [0, 0, 0])
-    retry_time = 3
+    retry_time = 7
     begin
       puts "[DroneNavy] #{DateTime.now}, begin to send_fleet to #{to}"
       fleet1_page = $AGENT.get Settings.pages.fleet_1

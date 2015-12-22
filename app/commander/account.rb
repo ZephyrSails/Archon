@@ -15,12 +15,13 @@ class Account
       login_form.field_with(:name => "login").value = empire.name
       login_form.field_with(:name => "pass").value = empire.pass
       login_form.field_with(:name => "uni").value = "#{empire.galaxy.code}.ogame.gameforge.com"
-      return login_result = $AGENT.submit login_form
+      login_result = $AGENT.submit login_form
       if $PLANET != nil
         puts "going to #{$PLANET}"
-        return $AGENT.get "#{Settings.pages.overview}&cp=#{Preference.planets[$PLANET][0]}"
+        $AGENT.get "#{Settings.pages.overview}&cp=#{Preference.planets[$PLANET][0]}"
       end
       puts "login success"
+      # return login_result
     rescue => e
       puts "login failed"
       puts e.message
