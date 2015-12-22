@@ -24,8 +24,13 @@ module DroneNavy
       puts "failed 1"
       retry
     end
+    if start_with == 0 and mission == :espionage
+      puts "[DroneNavy] #{DateTime.now}, there are espi in this planet, try next planet."
+      Captain.one_order_loot
+    else
+      puts "[DroneNavy] #{DateTime.now}, begin to batch, start with: #{start_with}"
+    end
 
-    puts "[DroneNavy] #{DateTime.now}, begin to batch, start with: #{start_with}"
     positions.each_with_index do |to, index|
       sleep 0.01
       # 2015-12-19 08:09:24
