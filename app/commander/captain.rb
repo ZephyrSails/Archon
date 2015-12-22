@@ -38,8 +38,8 @@ module Captain
     end_at = Time.now
     puts "Captain.one_order_loot Completed at #{DateTime.now}, time used: #{(end_at-start_at).round(1)} seconds"
 
-    if $LAST_PLANET != :Megathron
-      DroneNavy.lc_delivery($LAST_PLANET, :Megathron)
+    if Preference.subordinate_planet.include? $LAST_PLANET
+      DroneNavy.lc_delivery($LAST_PLANET, Preference.mather_planet)
     end
   end
 

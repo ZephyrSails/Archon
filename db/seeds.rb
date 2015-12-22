@@ -17,6 +17,8 @@ Preference.planets = {  Megathron:  [33716708, "1:410:4"],
                         Thanatos:   [33720592, "2:401:10"],
                         Erebus:     [33720852, "7:168:8"]
                       }
-Preference.planet_buff = [:Megathron, :Dominix]
+Preference.planet_buff = [:Megathron, :Dominix, :Vexor]
+Preference.subordinate_planet = [:Dominix, :Vexor]
+Preference.mather_planet = :Megathron
 Preference.planet_index = 0
 Preference.free_slot = 13
