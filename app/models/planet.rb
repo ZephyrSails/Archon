@@ -116,7 +116,7 @@ class Planet < ActiveRecord::Base
   end
 
   def farm_count_higher_than?(farm_count = 1)
-    if self.farm_count > farm_count
+    if self.farm_count != nil and self.farm_count > farm_count
       return true
     else
       return false
