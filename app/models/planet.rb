@@ -6,6 +6,7 @@ class Planet < ActiveRecord::Base
   has_one :facility, dependent: :destroy
   has_many :fleets, dependent: :destroy
 
+
   def distance_to_basement
     to = Preference.planets[$PLANET][1]
     return Abacus.get_distance(self.position, to)
@@ -108,6 +109,14 @@ class Planet < ActiveRecord::Base
 
   def is_safe?
     if self.defence_value == 0 and self.fleets_value == 0
+      return true
+    else
+      return false
+    end
+  end
+
+  def farm_count_higher_than?(farm_count > 1)
+    if self.farm_count > farm_count
       return true
     else
       return false
