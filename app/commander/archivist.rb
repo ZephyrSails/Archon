@@ -62,7 +62,8 @@ module Archivist
       is_idle?: [true],
       is_less_flight_time?: [true, from, 17250, 3150],
       is_safe?: [true],
-      has_more_economy_score?: [true]
+      has_more_economy_score?: [true],
+      farm_count_higher_than?: [true]
     }
   end
 

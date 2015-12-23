@@ -11,7 +11,7 @@ module Captain
       puts "#{DateTime.now}, Captain.one_order_loot begin"
       Account.instance.login
 
-      positions = Archivist.get_positions(Archivist.options_close_idle_safe)
+      positions = Archivist.get_positions(Archivist.options_close_idle_safe).shuffle
       # Processor.instance.start
       DroneNavy.batch_send(positions, "espi")
       # Captain.spy_i_on(positions, 1, 0.1)
