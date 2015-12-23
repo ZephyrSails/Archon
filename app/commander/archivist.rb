@@ -61,9 +61,9 @@ module Archivist
     options = {
       is_idle?: [true],
       is_less_flight_time?: [true, from, 17250, 3150],
+      # farm_count_higher_than?: [true],
       is_safe?: [true],
-      has_more_economy_score?: [true],
-      farm_count_higher_than?: [true]
+      has_more_economy_score?: [true, 333]
     }
   end
 

@@ -53,7 +53,7 @@ class Planet < ActiveRecord::Base
     return false
   end
 
-  def has_more_economy_score?(score = 100)
+  def has_more_economy_score?(score = 333)
     begin
       return true if self.empire.score_economy.to_i > score
     rescue
