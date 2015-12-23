@@ -86,7 +86,7 @@ module Merchant
       my_bid = auction.search("td.js_alreadyBidden").text.gsub(".", "").to_i
       min_bid = auction.search("td.js_price").text.gsub(".", "").to_i
       bid = min_bid - my_bid
-      if bid < 10000 and status == "Auctions in progress"
+      if bid < Preference.bid_amount and status == "Auctions in progress"
         auctioneerToken = auction.search("script").to_s[/auctioneerToken="(.*?)"/, 1]
 
         form = {

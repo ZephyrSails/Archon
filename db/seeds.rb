@@ -22,3 +22,5 @@ Preference.subordinate_planet = [:Dominix, :Vexor]
 Preference.mather_planet = :Megathron
 Preference.planet_index = 0
 Preference.free_slot = 13
+Preference.bid_amount = 5999
+Preference.center_mode = true

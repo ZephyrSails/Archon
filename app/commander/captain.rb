@@ -38,7 +38,7 @@ module Captain
     end_at = Time.now
     puts "Captain.one_order_loot Completed at #{DateTime.now}, time used: #{(end_at-start_at).round(1)} seconds"
 
-    if Preference.subordinate_planet.include? $LAST_PLANET
+    if Preference.center_mode and Preference.subordinate_planet.include? $LAST_PLANET
       DroneNavy.lc_delivery($LAST_PLANET, Preference.mather_planet)
     end
   end
