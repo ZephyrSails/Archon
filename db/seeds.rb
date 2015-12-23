@@ -24,3 +24,4 @@ Preference.planet_index = 0
 Preference.free_slot = 13
 Preference.bid_amount = 5999
 Preference.center_mode = true
+Preference.center_threshold = 2000000

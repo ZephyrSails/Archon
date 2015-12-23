@@ -137,7 +137,9 @@ module DroneNavy
     deuterium = eval(login_result.body.to_s[/deuterium":{"resources":(.*?),"tooltip":"Deuterium/, 1])[:actual]
     fleet.large_cargo = ((metal+crystal+deuterium-100000) / 25000) + 1
     cargo = [metal,crystal,deuterium - 100000]
-    DroneNavy.send_fleet(from, to, mission, fleet, 10, cargo)
+    if (metal+crystal+deuterium-100000) > Preference.center_threshold
+      DroneNavy.send_fleet(from, to, mission, fleet, 10, cargo)
+    end
 
   end
 
