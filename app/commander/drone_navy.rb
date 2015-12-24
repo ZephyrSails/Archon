@@ -143,6 +143,60 @@ module DroneNavy
 
   end
 
+  def DroneNavy.alert()
+    $PLANET = :Megathron
+    Account.instance.login
+    from = "1:410:4"
+    to = "1:410:7"
+    mission = :transport
+    fleet = Fleet.new
+    fleet.light_fighter = 99999
+    fleet.heavy_fighter = 99
+    fleet.cruiser = 99
+    fleet.bomber = 99
+    fleet.destroyer = 999
+    fleet.death_star = 9
+    fleet.large_cargo = 999
+    fleet.colony_ship = 99
+    fleet.recycler = 999
+    fleet.espionage_probe = 99
+    speed = 1
+    cargo = [999999999,999999999,999999999]
+    fleet1_page = $AGENT.get Settings.pages.fleet_1
+    sleep 0.01
+    ship_choosen_form = fleet1_page.form_with :name => "shipsChosen"
+    for i in 202..215
+      next if i == 212
+      ship_choosen_form.field_with(:name => "am#{i}").value = fleet[Settings.fleets["am#{i}"]].to_i
+    end
+    ship_choosen_form.field_with(:name => "galaxy").value = from.split(":")[0].to_i
+    ship_choosen_form.field_with(:name => "system").value = from.split(":")[1].to_i
+    ship_choosen_form.field_with(:name => "position").value = from.split(":")[2].to_i
+    ship_choosen_form.field_with(:name => "speed").value = speed
+    fleet2_page = $AGENT.submit ship_choosen_form
+    sleep 0.01
+    details_form = fleet2_page.form_with :name => "details"
+    details_form.field_with(:name => "mission").value = Settings.missions[mission]
+    details_form.field_with(:name => "galaxy").value = to.split(":")[0].to_i
+    details_form.field_with(:name => "system").value = to.split(":")[1].to_i
+    details_form.field_with(:name => "position").value = to.split(":")[2].to_i
+    fleet3_page = $AGENT.submit details_form
+    sleep 0.01
+    sending_form = fleet3_page.form_with :name => "sendForm"
+    for i in 202..215
+      next if i == 212
+      sending_form.field_with(:name => "am#{i}").value = fleet[Settings.fleets["am#{i}"]].to_i
+    end
+    sending_form.field_with(:name => "metal").value = cargo[0]
+    sending_form.field_with(:name => "crystal").value = cargo[1]
+    sending_form.field_with(:name => "deuterium").value = cargo[2]
+
+
+    final_page = $AGENT.submit sending_form
+
+
+  end
+
 
   def DroneNavy.send_fleet(from, to, mission, fleet, speed = 10, cargo = [0, 0, 0])
     retry_time = 7

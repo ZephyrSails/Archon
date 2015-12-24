@@ -2,6 +2,10 @@ module Captain
 
   def Captain.one_order_loot
     # Settings.reload!
+    if Preference.alert_mode
+      puts "it's in alert_mode"
+      return
+    end
     Captain.get_from
     # $PLANET = :Megathron
     start_at = Time.now
@@ -10,6 +14,14 @@ module Captain
 
       puts "#{DateTime.now}, Captain.one_order_loot begin"
       Account.instance.login
+
+      options = {
+        is_idle?: [true],
+        is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 1800],
+        # farm_count_higher_than?: [true],
+        is_safe?: [true],
+        has_more_economy_score?: [true, 333]
+      }
 
       options = Archivist.options_close_idle_safe
       positions = Archivist.get_positions(options).shuffle

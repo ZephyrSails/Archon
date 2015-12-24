@@ -1,6 +1,10 @@
 module Merchant
 
   def Merchant.auction
+    if Preference.alert_mode
+      puts "it's in alert_mode"
+      return
+    end
     $PLANET = :Megathron
 
     # Settings.reload!
@@ -12,7 +16,13 @@ module Merchant
       puts "[Merchant] market_report #{report} #{DateTime.now}"
       if report[:status]
         puts "[Merchant] wait #{report[:time_left]} sec before bid"
+
         sleep report[:time_left]
+
+        if report[:high_bider] == "High thoughts"
+          puts "[Merchant] High thoughts"
+          return true
+        end
         result = Merchant.bid
         if result[0] == 0
           puts "[Merchant] bid with #{result[1]} success"
@@ -23,6 +33,7 @@ module Merchant
         else
           puts "[Merchant] bid failed #{result}"
         end
+
       else
         if report[:time_left] < 1500
           puts "[Merchant] wait #{report[:time_left]} sec auction open, last_win #{report[:high_bider]}"
