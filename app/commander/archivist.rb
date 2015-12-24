@@ -78,8 +78,10 @@ module Archivist
   end
 
   # Archivist.get_positions(options)
-  # positions = Archivist.get_positions(Archivist.gala_farm_spy1("7"))
-  # positions = Archivist.get_positions(Archivist.gala_farm_spy2("7"))
+  # positions = Archivist.get_positions(Archivist.gala_farm_spy1("2"))
+  # positions = Archivist.get_positions(Archivist.gala_farm_spy2("2"))
+  # DroneNavy.batch_send(positions, "espi")
+  # Journalist.report_espionage_messages(1, (positions.length/10)+1)
   def Archivist.gala_farm_spy1(galaxy = "1", eco_score = 100)
     options = {
       is_idle?: [true],
