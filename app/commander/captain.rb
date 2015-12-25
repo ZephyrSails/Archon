@@ -31,7 +31,7 @@ module Captain
 
       options = {
         is_idle?: [true],
-        is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 2000],
+        is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 1800],
         # farm_count_higher_than?: [true],
         is_safe?: [true],
         has_more_economy_score?: [true, 333]
@@ -70,10 +70,10 @@ module Captain
     end_at = Time.now
     puts "Captain.one_order_loot Completed at #{DateTime.now}, time used: #{(end_at-start_at).round(1)} seconds"
 
-    if Preference.planets["#{$PLANET}".to_sym] != nil
-      $PLANET = Preference.planets["#{$PLANET}_m".to_sym]
-      Account.instance.login
-    end
+    # if Preference.planets["#{$PLANET}".to_sym] != nil
+    #   $PLANET = Preference.planets["#{$PLANET}_m".to_sym]
+    #   Account.instance.login
+    # end
 
     if Preference.center_mode and Preference.subordinate_planet.include? $LAST_PLANET
       DroneNavy.lc_delivery($LAST_PLANET, Preference.mather_planet)

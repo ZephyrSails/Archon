@@ -75,6 +75,7 @@ module DroneNavy
         details_form.field_with(:name => "galaxy").value = to.position.split(":")[0].to_i
         details_form.field_with(:name => "system").value = to.position.split(":")[1].to_i
         details_form.field_with(:name => "position").value = to.position.split(":")[2].to_i
+        details_form.field_with(:name => "type").value = 1
         puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}:fleet sending 2, to #{to.position}"
 
         fleet3_page = $AGENT.submit details_form
