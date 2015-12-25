@@ -122,23 +122,32 @@ module DroneNavy
     puts "#{start_with}=>#{count_number}"
   end
 
-  def DroneNavy.lc_delivery(from=:Dominix, to=:Megathron)
+  def DroneNavy.lc_delivery(from=:Dominix, to=:Megathron, mission=:transport, type=1)
 
     fleet = Fleet.new
     fleet.large_cargo = 9999
-    from = Preference.planets[from][1]
-    to = Preference.planets[to][1]
-    mission = :transport
-    # cargo = [999999999,999999999,999999999]
-    # $PLANET = $LAST_PLANET
-    login_result = $AGENT.get "#{Settings.pages.fleet_1}&cp=#{Preference.planets[$LAST_PLANET][0]}"
-    metal = eval(login_result.body.to_s[/metal":{"resources":(.*?),"tooltip":"Metal/, 1])[:actual]
-    crystal = eval(login_result.body.to_s[/crystal":{"resources":(.*?),"tooltip":"Crystal/, 1])[:actual]
-    deuterium = eval(login_result.body.to_s[/deuterium":{"resources":(.*?),"tooltip":"Deuterium/, 1])[:actual]
-    fleet.large_cargo = ((metal+crystal+deuterium-100000) / 25000) + 1
-    cargo = [metal,crystal,deuterium - 100000]
-    if (metal+crystal+deuterium-100000) > Preference.center_threshold
-      DroneNavy.send_fleet(from, to, mission, fleet, 10, cargo)
+    from_cor = Preference.planets[from][1]
+    to_cor = Preference.planets[to][1]
+    login_result = $AGENT.get "#{Settings.pages.fleet_1}&cp=#{Preference.planets[from][0]}"
+
+    if (mission == :transport) or (mission == :deployment and type == 1)
+      metal = eval(login_result.body.to_s[/metal":{"resources":(.*?),"tooltip":"Metal/, 1])[:actual]
+      crystal = eval(login_result.body.to_s[/crystal":{"resources":(.*?),"tooltip":"Crystal/, 1])[:actual]
+      deuterium = eval(login_result.body.to_s[/deuterium":{"resources":(.*?),"tooltip":"Deuterium/, 1])[:actual]
+      cargo = [metal,crystal,[deuterium - 100000, 0].max]
+      if mission == :transport
+        if (metal+crystal+deuterium-100000) > Preference.center_threshold
+          fleet.large_cargo = ((metal+crystal+deuterium-100000) / 25000) + 1
+
+          DroneNavy.send_fleet(from_cor, to_cor, mission, fleet, 10, cargo)
+        end
+      else
+        DroneNavy.send_fleet(from_cor, to_cor, mission, fleet, 10, cargo)
+      end
+
+    elsif mission == :deployment and type == 3
+      cargo = [0,0,100000]
+      DroneNavy.send_fleet(from_cor, to_cor, mission, fleet, 10, cargo, type)
     end
 
   end
@@ -198,7 +207,7 @@ module DroneNavy
   end
 
 
-  def DroneNavy.send_fleet(from, to, mission, fleet, speed = 10, cargo = [0, 0, 0])
+  def DroneNavy.send_fleet(from, to, mission, fleet, speed = 10, cargo = [0, 0, 0], type=1)
     retry_time = 7
     begin
       puts "[DroneNavy] #{DateTime.now}, #{mission} to #{to}, cargo: #{cargo}"
@@ -218,6 +227,7 @@ module DroneNavy
       fleet2_page = $AGENT.submit ship_choosen_form
       sleep 0.01
       details_form = fleet2_page.form_with :name => "details"
+      details_form.field_with(:name => "type").value = type
       details_form.field_with(:name => "mission").value = Settings.missions[mission]
       details_form.field_with(:name => "galaxy").value = to.split(":")[0].to_i
       details_form.field_with(:name => "system").value = to.split(":")[1].to_i

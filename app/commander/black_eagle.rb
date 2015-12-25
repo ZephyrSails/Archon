@@ -68,7 +68,7 @@ module BlackEagle
   end
 
   # rails runner "BlackEagle.weekly_update_galaxy"
-  def BlackEagle.update_universe
+  def BlackEagle.update_universe(begin_from = 0)
     # Settings.reload!
     $AGENT = Mechanize.new
     rank_page = $AGENT.get Settings.apis.players
@@ -78,29 +78,29 @@ module BlackEagle
 
     players_page.search("player").each do |player|
 
-      puts player_id = player.attribute("id").to_s
+      player_id = player.attribute("id").to_s.to_i
+      if player_id <= begin_from
+        next
+      end
+      puts player_id
 
       # next if player_id == "1" || player_id == "100000"
 
       player_status = player.attribute("status").to_s
 
       player_name = player.attribute("name").to_s
+
+      retry_time = 0
       begin
         player_page = $AGENT.get "#{Settings.apis.player}#{player_id}"
       rescue
-        retry
-        # begin
-        #   puts "3 sec failed, retrying"
-        #   $AGENT = Mechanize.new
-        #   rank_page = $AGENT.get Settings.apis.players
-        #   # players_page = $AGENT.get Settings.apis.players
-        #   $AGENT.open_timeout = 3
-        #   $AGENT.read_timeout = 3
-        # rescue
-        #   puts "rescue rescue"
-        #   retry
-        # end
-        # retry
+        if retry_time < 5
+          retry_time += 1
+          retry
+        else
+          puts "nono"
+          next
+        end
       end
 
       begin

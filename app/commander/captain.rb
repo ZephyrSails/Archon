@@ -7,11 +7,19 @@ module Captain
       return
     end
     Captain.get_from
+    Account.instance.login
+    if Preference.planets["#{$LAST_PLANET}_m".to_sym] != nil
+      DroneNavy.lc_delivery("#{$LAST_PLANET}_m".to_sym, "#{$LAST_PLANET}_m".to_sym, :deployment, 1)
+    end
+
+    if Preference.planets["#{$PLANET}_m".to_sym] != nil
+      DroneNavy.lc_delivery($PLANET, $PLANET, :deployment, 3)
+    end
+
     # $PLANET = :Megathron
     start_at = Time.now
     begin
       # if Mode.find_by(name: "large_cargo_raid").value == 1
-
       puts "#{DateTime.now}, Captain.one_order_loot begin"
       Account.instance.login
 
@@ -28,6 +36,10 @@ module Captain
       # Processor.instance.start
       DroneNavy.batch_send(positions, "espi")
       # Captain.spy_i_on(positions, 1, 0.1)
+      if Preference.planets["#{$PLANET}_m".to_sym] != nil
+        $PLANET = Preference.planets["#{$PLANET}_m".to_sym]
+        Account.instance.login
+      end
 
       sleep 50
 
@@ -51,6 +63,11 @@ module Captain
     end_at = Time.now
     puts "Captain.one_order_loot Completed at #{DateTime.now}, time used: #{(end_at-start_at).round(1)} seconds"
 
+    if Preference.planets["#{$PLANET}".to_sym] != nil
+      $PLANET = Preference.planets["#{$PLANET}_m".to_sym]
+      Account.instance.login
+    end
+
     if Preference.center_mode and Preference.subordinate_planet.include? $LAST_PLANET
       DroneNavy.lc_delivery($LAST_PLANET, Preference.mather_planet)
     end
@@ -62,17 +79,6 @@ module Captain
     Preference.planet_index %= Preference.planet_buff.length
     $PLANET = Preference.planet_buff[Preference.planet_index]
   end
-
-  # def Captain.lc_cercle
-  #   current_index = Preference.planet_index += 1
-  #   index_length = Preference.planet_buff.length
-  #   last_index = (current_index + index_length-1) % index_length
-  #   last_planet = Preference.planet_buff[last_index]
-  #
-  #   return last_planet
-  #
-  #
-  # end
 
   # $PLANET = :Megathron
   # options = Archivist.gala_farm_spy1 "1"
@@ -91,27 +97,6 @@ module Captain
       retry
     end
   end
-
-  # def Captain.spy_i_on(positions, number = 1, interval = 5)
-  #   positions.each_with_index do |to, index|
-  #     begin
-  #       from = Preference.planets[$PLANET][1]
-  #       puts "[Captain] sending spy to #{to.position}, #{index} finished, #{positions.count-index} left"
-  #       Captain.send_spy(from, to.position, number)
-  #       sleep interval
-  #     rescue => e
-  #       begin
-  #         sleep 0.01
-  #         puts "I'm rescue some big mistake"
-  #         puts e.backtrace.join("\n")
-  #         Account.instance.login
-  #       rescue
-  #         retry
-  #       end
-  #       retry
-  #     end
-  #   end
-  # end
 
   def Captain.send_spy(from, to, number)
     fleet_id = General.send_spy(from, to, number)
@@ -140,12 +125,33 @@ module Captain
         to.update_farm_count
 
       rescue => e
-
         Account.instance.login
-
         retry
       end
     end
   end
+
+  # def Captain.spy_i_on(positions, number = 1, interval = 5)
+  #   positions.each_with_index do |to, index|
+  #     begin
+  #       from = Preference.planets[$PLANET][1]
+  #       puts "[Captain] sending spy to #{to.position}, #{index} finished, #{positions.count-index} left"
+  #       Captain.send_spy(from, to.position, number)
+  #       sleep interval
+  #     rescue => e
+  #       begin
+  #         sleep 0.01
+  #         puts "I'm rescue some big mistake"
+  #         puts e.backtrace.join("\n")
+  #         Account.instance.login
+  #       rescue
+  #         retry
+  #       end
+  #       retry
+  #     end
+  #   end
+  # end
+
+
 
 end
