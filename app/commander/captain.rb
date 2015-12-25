@@ -9,11 +9,17 @@ module Captain
     Captain.get_from
     Account.instance.login
     if Preference.planets["#{$LAST_PLANET}_m".to_sym] != nil
-      DroneNavy.lc_delivery("#{$LAST_PLANET}_m".to_sym, "#{$LAST_PLANET}_m".to_sym, :deployment, 1)
+      begin
+        DroneNavy.lc_delivery("#{$LAST_PLANET}_m".to_sym, "#{$LAST_PLANET}_m".to_sym, :deployment, 1)
+      rescue
+      end
     end
 
     if Preference.planets["#{$PLANET}_m".to_sym] != nil
-      DroneNavy.lc_delivery($PLANET, $PLANET, :deployment, 3)
+      begin
+        DroneNavy.lc_delivery($PLANET, $PLANET, :deployment, 3)
+      rescue
+      end
     end
 
     # $PLANET = :Megathron
@@ -25,7 +31,7 @@ module Captain
 
       options = {
         is_idle?: [true],
-        is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 1800],
+        is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 2000],
         # farm_count_higher_than?: [true],
         is_safe?: [true],
         has_more_economy_score?: [true, 333]
@@ -37,7 +43,8 @@ module Captain
       DroneNavy.batch_send(positions, "espi")
       # Captain.spy_i_on(positions, 1, 0.1)
       if Preference.planets["#{$PLANET}_m".to_sym] != nil
-        $PLANET = Preference.planets["#{$PLANET}_m".to_sym]
+        $PLANET = "#{$PLANET}_m".to_sym
+        # "#{$PLANET}_m".to_sym]Preference.planets["#{$PLANET}_m".to_sym]
         Account.instance.login
       end
 
