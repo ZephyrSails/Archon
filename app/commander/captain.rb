@@ -31,7 +31,7 @@ module Captain
 
       options = {
         is_idle?: [true],
-        is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 1800],
+        is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 1600],
         # farm_count_higher_than?: [true],
         is_safe?: [true],
         has_more_economy_score?: [true, 333]

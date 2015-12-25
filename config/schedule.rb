@@ -25,14 +25,14 @@
 # crontab -l
 
 set :output, "cron_log.log"
-every 2.hours do
+every '0 0,8,10,12,14,16,18,20,22 * * *' do
   # runner "puts #{Time.now}"
   # command "proxychains /bin/bash -l -c 'cd /home/zephyr/code/Archon && bin/rails runner -e development '\''Captain.one_order_loot'\'' >> /home/zephyr/code/Archon/cron_log.log 2>&1'"
   runner "Captain.one_order_loot"
   # runner "ApplicationHelper.new_inspections"
 end
 
-set :output, "auctioneer_cron_log.log"
-every '30 * * * *' do
-  runner "Merchant.auction"
-end
+# set :output, "auctioneer_cron_log.log"
+# every '30 * * * *' do
+#   runner "Merchant.auction"
+# end
