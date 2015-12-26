@@ -25,7 +25,7 @@
 # crontab -l
 
 set :output, "cron_log.log"
-every '0 0,2,8,10,12,14,16,18,20,22 * * * TZ="Asia/Shanghai"' do
+every '0 0,2,10,12,14,16,18,20,22 * * * TZ="Asia/Shanghai"' do
   # runner "puts #{Time.now}"
   # command "proxychains /bin/bash -l -c 'cd /home/zephyr/code/Archon && bin/rails runner -e development '\''Captain.one_order_loot'\'' >> /home/zephyr/code/Archon/cron_log.log 2>&1'"
   runner "Captain.one_order_loot"
