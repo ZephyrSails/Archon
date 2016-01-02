@@ -40,7 +40,7 @@ module Captain
       options = Archivist.options_close_idle_safe
       positions = Archivist.get_positions(options).shuffle
       # Processor.instance.start
-      DroneNavy.batch_send(positions, "espi")
+      DroneNavy.batch_send(positions[0..99], "espi")
       # Captain.spy_i_on(positions, 1, 0.1)
       if Preference.planets["#{$PLANET}_m".to_sym] != nil
         $PLANET = "#{$PLANET}_m".to_sym
@@ -56,6 +56,11 @@ module Captain
         Account.instance.login
         retry
       end
+
+      if Preference.center_mode and Preference.subordinate_planet.include? $LAST_PLANET
+        DroneNavy.lc_delivery($LAST_PLANET, Preference.mather_planet)
+      end
+
       positions = (Archivist.get_positions(options).sort_by &:resource_value).reverse[0..Preference.lc_fleet_count]
       # positions = (Archivist.get_positions(options).sort_by &:resource_value).reverse[0..Preference.lc_fleet_count]
       DroneNavy.batch_send(positions, "lc")
@@ -75,9 +80,7 @@ module Captain
     #   Account.instance.login
     # end
 
-    if Preference.center_mode and Preference.subordinate_planet.include? $LAST_PLANET
-      DroneNavy.lc_delivery($LAST_PLANET, Preference.mather_planet)
-    end
+
   end
 
   def Captain.get_from
