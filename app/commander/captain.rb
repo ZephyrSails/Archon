@@ -44,7 +44,7 @@ module Captain
       }
 
       options = Archivist.options_close_idle_safe
-      positions = Archivist.get_positions(options).shuffle
+      positions = Archivist.get_positions(options).shuffle[0..99]
       # Processor.instance.start
       DroneNavy.batch_send(positions, "espi")
       # Captain.spy_i_on(positions, 1, 0.1)
