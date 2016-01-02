@@ -88,6 +88,11 @@ module DroneNavy
         count_number = final_page.body.to_s[/#{ship_name}\s(.*+)\n/, 1][/\((.*)\)/, 1].to_i
 
         puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: #{ship_count}=>#{count_number} fleet sent successful"
+
+        if count_number == 0
+          puts "[DroneNavy][#{index}/#{positions.length}]#{Time.now}: need more cargo"
+          return
+        end
         fleet1_page = final_page
         if type != "espi"
           to.update_farm_count
@@ -126,7 +131,7 @@ module DroneNavy
   def DroneNavy.lc_delivery(from=:Dominix, to=:Megathron, mission=:transport, type=1)
 
     fleet = Fleet.new
-    fleet.large_cargo = 9999
+    fleet.large_cargo = 280
     from_cor = Preference.planets[from][1]
     to_cor = Preference.planets[to][1]
     login_result = $AGENT.get "#{Settings.pages.fleet_1}&cp=#{Preference.planets[from][0]}"

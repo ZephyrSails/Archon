@@ -22,7 +22,13 @@ module Captain
       end
     end
 
-    # $PLANET = :Megathron
+    if Preference.center_mode and Preference.subordinate_planet.include? $LAST_PLANET
+      begin
+        DroneNavy.lc_delivery($LAST_PLANET, Preference.mather_planet)
+      rescue
+      end
+    end
+
     start_at = Time.now
     begin
       # if Mode.find_by(name: "large_cargo_raid").value == 1
@@ -40,7 +46,7 @@ module Captain
       options = Archivist.options_close_idle_safe
       positions = Archivist.get_positions(options).shuffle
       # Processor.instance.start
-      DroneNavy.batch_send(positions[0..99], "espi")
+      DroneNavy.batch_send(positions, "espi")
       # Captain.spy_i_on(positions, 1, 0.1)
       if Preference.planets["#{$PLANET}_m".to_sym] != nil
         $PLANET = "#{$PLANET}_m".to_sym
@@ -56,11 +62,6 @@ module Captain
         Account.instance.login
         retry
       end
-
-      if Preference.center_mode and Preference.subordinate_planet.include? $LAST_PLANET
-        DroneNavy.lc_delivery($LAST_PLANET, Preference.mather_planet)
-      end
-
       positions = (Archivist.get_positions(options).sort_by &:resource_value).reverse[0..Preference.lc_fleet_count]
       # positions = (Archivist.get_positions(options).sort_by &:resource_value).reverse[0..Preference.lc_fleet_count]
       DroneNavy.batch_send(positions, "lc")
@@ -80,7 +81,6 @@ module Captain
     #   Account.instance.login
     # end
 
-
   end
 
   def Captain.get_from
@@ -90,7 +90,6 @@ module Captain
     $PLANET = Preference.planet_buff[Preference.planet_index]
   end
 
-  # $PLANET = :Megathron
   # options = Archivist.gala_farm_spy1 "1"
   # options = Archivist.gala_farm_spy2
   # positions = Archivist.get_positions(options)
