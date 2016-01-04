@@ -60,7 +60,15 @@ class Planet < ActiveRecord::Base
       return false
     end
     return false
+  end
 
+  def has_more_military_score?(score = 333, less_than = 500000)
+    begin
+      return true if self.empire.score_military.to_i > score and self.empire.score_military.to_i < less_than
+    rescue
+      return false
+    end
+    return false
   end
 
   def is_less_flight_time?(position, speed = 17250, second = 2700)

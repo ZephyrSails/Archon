@@ -1,4 +1,12 @@
 module Archivist
+  # positions = Archivist.get_positions(options)
+  options = {
+    # is_idle?: [true],
+    is_less_flight_time?: [true, "1:410:7", 17250, 3150],
+    # farm_count_higher_than?: [true],
+    has_more_military_score?: [true, 130000, 500000]
+  }
+
   def Archivist.get_planet_i_from(galaxy)
     planet_i = []
     for i in 1..499
@@ -77,7 +85,7 @@ module Archivist
     }
   end
 
-  # Archivist.get_positions(options)
+  # positions = Archivist.get_positions(options)
   # positions = Archivist.get_positions(Archivist.gala_farm_spy1("2"))
   # positions = Archivist.get_positions(Archivist.gala_farm_spy2("2"))
   # DroneNavy.batch_send(positions, "espi", 3)
