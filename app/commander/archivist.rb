@@ -3,6 +3,7 @@ module Archivist
   options = {
     # is_idle?: [true],
     is_less_flight_time?: [true, "1:410:7", 17250, 3150],
+    is_defence_unknow?: [true],
     # farm_count_higher_than?: [true],
     has_more_military_score?: [true, 130000, 500000]
   }

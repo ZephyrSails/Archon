@@ -44,6 +44,15 @@ class Planet < ActiveRecord::Base
     return false
   end
 
+  def in_vacation?
+    begin
+      return true if self.empire.status == "v"
+    rescue
+      return false
+    end
+    return false
+  end
+
   def has_more_score?(score)
     begin
       return true if self.empire.score.to_i > score
