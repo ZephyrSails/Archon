@@ -68,6 +68,28 @@ module BlackEagle
   end
 
   # rails runner "BlackEagle.weekly_update_galaxy"
+  def BlackEagle.clean_universe
+    $AGENT = Mechanize.new
+    rank_page = $AGENT.get Settings.apis.players
+    players_page = $AGENT.get Settings.apis.players
+    $AGENT.open_timeout = 1.5
+    $AGENT.read_timeout = 1.5
+    api_ids = []
+    players_page.search("player").each do |player|
+      player_id = player.attribute("id").to_s.to_i
+      api_ids << player_id
+    end
+    Empire.all.each do |empire|
+      unless api_ids.include? empire.api_id.to_i
+        puts "kick #{empire.api_id}"
+        empire.destroy
+        # empire.delete
+      end
+    end
+
+    return true
+
+  end
   def BlackEagle.update_universe(begin_from = 0)
     # Settings.reload!
     $AGENT = Mechanize.new
