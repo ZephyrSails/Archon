@@ -1,12 +1,17 @@
 module Archivist
   # positions = Archivist.get_positions(options)
+  # positions = (positions.sort_by &:resource_value).reverse
+  # positions = (positions.sort_by &:resource_sum)
   options = {
-    # is_idle?: [true],
-    is_less_flight_time?: [true, "1:410:7", 17250, 3150],
-    is_defence_unknow?: [true],
-    in_vacation?: [false],
+    is_idle?: [true],
+    has_more_resource?: [true, 2000000],
+    get_galaxy: ["1"],
+    has_less_defence?: [true, 20000000],
+    # is_less_flight_time?: [true, "1:410:7", 17250, 3150],
+    # is_defence_unknow?: [true],
+    in_vacation?: [false]
     # farm_count_higher_than?: [true],
-    has_more_military_score?: [true, 130000, 500000]
+    # has_more_military_score?: [true, 130000, 500000]
   }
 
   def Archivist.get_planet_i_from(galaxy)

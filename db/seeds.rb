@@ -28,3 +28,4 @@ Preference.center_mode = false
 Preference.center_threshold = 2000000
 Preference.material_value = [1.0, 2.0, 3.0]
 Preference.alert_mode = false
+Preference.left_fuel = 500000

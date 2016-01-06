@@ -140,10 +140,10 @@ module DroneNavy
       metal = eval(login_result.body.to_s[/metal":{"resources":(.*?),"tooltip":"Metal/, 1])[:actual]
       crystal = eval(login_result.body.to_s[/crystal":{"resources":(.*?),"tooltip":"Crystal/, 1])[:actual]
       deuterium = eval(login_result.body.to_s[/deuterium":{"resources":(.*?),"tooltip":"Deuterium/, 1])[:actual]
-      cargo = [metal,crystal,[deuterium - 100000, 0].max]
+      cargo = [metal,crystal,[deuterium - Preference.left_fuel, 0].max]
       if mission == :transport
-        if (metal+crystal+deuterium-100000) > Preference.center_threshold
-          fleet.large_cargo = ((metal+crystal+deuterium-100000) / 25000) + 1
+        if (metal+crystal+deuterium-Preference.left_fuel) > Preference.center_threshold
+          fleet.large_cargo = ((metal+crystal+deuterium-Preference.left_fuel) / 25000) + 1
 
           DroneNavy.send_fleet(from_cor, to_cor, mission, fleet, 10, cargo)
         end

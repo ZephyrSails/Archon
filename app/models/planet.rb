@@ -80,6 +80,14 @@ class Planet < ActiveRecord::Base
     return false
   end
 
+  def has_less_defence?(defence = 10000000)
+    if self.defence_value != nil and self.defence_value < defence
+      return true
+    else
+      return false
+    end
+  end
+
   def is_less_flight_time?(position, speed = 17250, second = 2700)
     if Abacus.get_time(self.position, position, speed) < second
       return true
@@ -89,7 +97,7 @@ class Planet < ActiveRecord::Base
   end
 
   def has_more_resource?(resource = 250000)
-    if self.resource_value > resource
+    if self.resource_value != nil and self.resource_value > resource
       return true
     else
       return false
