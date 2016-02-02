@@ -1,7 +1,29 @@
 module Archivist
+  # Account.instance.login
+  # DroneNavy.batch_send(positions, "espi")
+  # DroneNavy.batch_send(positions, "espi", 3)
   # positions = Archivist.get_positions(options)
-  # positions = (positions.sort_by &:resource_value).reverse
+  # positions = (Archivist.get_positions(options)).sort_by &:resource_sum
+  # positions = (positions.sort_by &:resource_value).reverse[0..10]
   # positions = (positions.sort_by &:resource_sum)
+  # options = Archivist.optins_idle_gala(galaxy = "1", eco_score = 100)
+  # positions = (Archivist.get_positions(options))
+  # DroneNavy.batch_send(positions, "espi")
+  # Journalist.report_espionage_messages(1, (positions.length/10)+1)
+  # Archivist.get_positions(options)
+  options = {
+    # is_idle?: [true],
+    in_vacation?: [false],
+    is_defence_unknow?: [true],
+    get_galaxy: ["1"],
+    not_friendly?: [true],
+    # is_less_flight_time?: [true, from, 17250, 3150],
+    # is_less_flight_time?: [true, "1:216:7", 17250, 3150],
+    # is_less_flight_time?: [true, from, speed, duration],
+    has_more_military_score?: [true, 130000, 2200000],
+    has_more_economy_score?: [true, 20000]
+  }
+
   options = {
     is_idle?: [true],
     has_more_resource?: [true, 2000000],
@@ -13,6 +35,12 @@ module Archivist
     # farm_count_higher_than?: [true],
     # has_more_military_score?: [true, 130000, 500000]
   }
+  # Account.instance.login
+  # positions = Archivist.get_positions(options)
+  # positions = Archivist.get_positions(Archivist.gala_farm_spy1("1"))
+  # positions = Archivist.get_positions(Archivist.gala_farm_spy2("2"))
+  # DroneNavy.batch_send(positions, "espi", 3)
+  # Journalist.report_espionage_messages(1, (positions.length/10)+1)
 
   def Archivist.get_planet_i_from(galaxy)
     planet_i = []
@@ -92,11 +120,7 @@ module Archivist
     }
   end
 
-  # positions = Archivist.get_positions(options)
-  # positions = Archivist.get_positions(Archivist.gala_farm_spy1("2"))
-  # positions = Archivist.get_positions(Archivist.gala_farm_spy2("2"))
-  # DroneNavy.batch_send(positions, "espi", 3)
-  # Journalist.report_espionage_messages(1, (positions.length/10)+1)
+
   def Archivist.gala_farm_spy1(galaxy = "1", eco_score = 100)
     options = {
       is_idle?: [true],
@@ -131,7 +155,6 @@ module Archivist
       is_idle?: [true],
       get_galaxy: [galaxy],
       # is_less_flight_time?: [true, from, speed, duration],
-      is_defence_unknow?: [true],
       has_more_economy_score?: [true, eco_score]
     }
   end

@@ -6,6 +6,14 @@ class Planet < ActiveRecord::Base
   has_one :facility, dependent: :destroy
   has_many :fleets, dependent: :destroy
 
+  def not_friendly?
+    begin
+      return false if Settings.friendly_fases.include?(self.empire.name)
+    rescue
+      return true
+    end
+    return true
+  end
 
   def distance_to_basement
     to = Preference.planets[$PLANET][1]

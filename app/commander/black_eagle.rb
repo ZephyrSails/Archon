@@ -44,7 +44,7 @@ module BlackEagle
     Planet.all.each do |p|
       if p.position.split(":")[0] == gala.to_s
         # if p.empire.status == "" or p.empire.status == nil
-        if true
+        if true and p.empire != nil
           galaxy[p.position.split(":")[1].to_i] += " #{p.position.split(":")[2]}:#{p.empire.rank}(#{p.empire.status})"
         end
       end
@@ -90,6 +90,7 @@ module BlackEagle
     return true
 
   end
+  # ActiveRecord::Base.logger.level = 1
   def BlackEagle.update_universe(begin_from = 0)
     # Settings.reload!
     $AGENT = Mechanize.new
