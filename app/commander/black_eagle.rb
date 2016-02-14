@@ -102,6 +102,7 @@ module BlackEagle
     players_page.search("player").each do |player|
 
       player_id = player.attribute("id").to_s.to_i
+
       if player_id <= begin_from
         next
       end
@@ -112,6 +113,7 @@ module BlackEagle
       player_status = player.attribute("status").to_s
 
       player_name = player.attribute("name").to_s
+      alliance_api_id = player.attribute("alliance").to_s
 
       retry_time = 0
       begin
@@ -145,6 +147,7 @@ module BlackEagle
           empire.api_id = player_id
           empire.status = player_status
           empire.name = player_name
+          empire.alliance_api_id = alliance_api_id
           empire.rank = player_rank
           empire.score = player_score
         end
@@ -153,6 +156,7 @@ module BlackEagle
         empire.name = player_name
         empire.rank = player_rank
         empire.score = player_score
+        empire.alliance_api_id = alliance_api_id
       end
       player_page.search("position").each_with_index do |player, index|
         # puts Settings.score_type["#{index}"]

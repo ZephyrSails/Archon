@@ -1,5 +1,33 @@
 module Captain
 
+  def Captain.one_order_spy
+
+    Account.instance.login
+
+    options = {
+      # is_idle?: [true],
+      in_vacation?: [false],
+      # is_defence_unknow?: [true],
+      is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 2700],
+      # get_galaxy: ["1"],
+      not_friendly?: [true],
+      # is_less_flight_time?: [true, from, 17250, 3150],
+      # is_less_flight_time?: [true, "1:216:7", 17250, 3150],
+      # is_less_flight_time?: [true, from, speed, duration],
+      has_more_military_score?: [true, 130000, 2200000],
+      # has_more_economy_score?: [true, 20000]
+    }
+    # options = {
+    #   is_idle?: [true],
+    #   is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 2700],
+    #   # farm_count_higher_than?: [true],
+    #   is_safe?: [true],
+    #   has_more_economy_score?: [true, 333]
+    # }
+
+
+  end
+
   def Captain.one_order_loot
     # Settings.reload!
     if Preference.alert_mode
