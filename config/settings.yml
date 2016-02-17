@@ -12,7 +12,8 @@ range:
   Dominix:    [ 216, 145, 313, 71 ]
   Vexor:      [  74, 492, 145, 81 ]
 
-friendly_fases: ["zephyr", "zephyrsails"]
+friendly_fases: ["zephyr", "zephyrsails", "Xin Zhao", ""]
+friendly_alliances: ["273", "507"]
 
 pages:
   fleet_1: "http://s131-en.ogame.gameforge.com/game/index.php?page=fleet1"

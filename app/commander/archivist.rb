@@ -35,12 +35,7 @@ module Archivist
     # farm_count_higher_than?: [true],
     # has_more_military_score?: [true, 130000, 500000]
   }
-  # Account.instance.login
-  # positions = Archivist.get_positions(options)
-  # positions = Archivist.get_positions(Archivist.gala_farm_spy1("1"))
-  # positions = Archivist.get_positions(Archivist.gala_farm_spy2("2"))
-  # DroneNavy.batch_send(positions, "espi", 3)
-  # Journalist.report_espionage_messages(1, (positions.length/10)+1)
+  
 
   def Archivist.get_planet_i_from(galaxy)
     planet_i = []

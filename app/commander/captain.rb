@@ -1,9 +1,15 @@
 module Captain
 
+  # Account.instance.login
+
+  # positions = Archivist.get_positions(Archivist.gala_farm_spy1("1"))
+  # positions = Archivist.get_positions(Archivist.gala_farm_spy2("1"))
+  # DroneNavy.batch_send(positions, "espi", 3)
+  # Journalist.report_espionage_messages(1, (positions.length/10)+1)
   def Captain.one_order_spy
 
-    Account.instance.login
-
+    $PLANET = :Hyperion
+    $PLANET = :Vexor
     options = {
       # is_idle?: [true],
       in_vacation?: [false],
@@ -11,12 +17,15 @@ module Captain
       is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 2700],
       # get_galaxy: ["1"],
       not_friendly?: [true],
+      not_friendly_alliance?: [true],
       # is_less_flight_time?: [true, from, 17250, 3150],
       # is_less_flight_time?: [true, "1:216:7", 17250, 3150],
       # is_less_flight_time?: [true, from, speed, duration],
-      has_more_military_score?: [true, 130000, 2200000],
+      has_more_military_score?: [true, 320000, 22000000]
       # has_more_economy_score?: [true, 20000]
     }
+    positions = Archivist.get_positions(options).shuffle
+    Account.instance.login
     # options = {
     #   is_idle?: [true],
     #   is_less_flight_time?: [true, Preference.planets[$PLANET][1], 17250, 2700],

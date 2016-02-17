@@ -14,6 +14,14 @@ class Planet < ActiveRecord::Base
     end
     return true
   end
+  def not_friendly_alliance?
+    begin
+      return false if Settings.friendly_alliances.include?(self.empire.alliance_api_id)
+    rescue
+      return true
+    end
+    return true
+  end
 
   def distance_to_basement
     to = Preference.planets[$PLANET][1]
