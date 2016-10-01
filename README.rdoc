@@ -1,28 +1,23 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A robot, to help me play web-game: Ogame.
 
-Things you may want to cover:
+Can automatically perform:
 
-* Ruby version
+* Carpet Spy
 
-* System dependencies
+* Risk Assessment
 
-* Configuration
+* Fleet Organize, make sure every ship you have is making profit, all the time.
 
-* Database creation
+* Carpet Loot
 
-* Database initialization
+* Colonial Recommendations, To discover Archon's full potential, you MUST follow his advise and expand your base SMARTLY.
 
-* How to run the test suite
+* Retaliate Avoidance
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+* Not so Smart Auction (Don't be too greedy, might get destroyed)
 
 * ...
 
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+With Archon, My account surpass 95% player (rank list) in a 2 years old server, in 3 month.
