@@ -16,8 +16,10 @@ Can automatically perform:
 
 * Retaliate Avoidance
 
-* Auto Auction (Don't be too greedy, might get destroyed)
+* Auto Auction (Don't be too greedy, might get caught)
 
 * ...
 
 With Archon, My account surpass 95% player (rank list) in a 2 years old server, in 3 month.
+
+This is obviously cheating and is NOT welcomed in game playing, it's already too late by the time I realized that.
