@@ -1,6 +1,6 @@
 == README
 
-A robot, to help me play web-game: Ogame.
+A robot, used to help me play web-game: Ogame.
 
 Can automatically perform:
 
