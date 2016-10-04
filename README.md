@@ -12,11 +12,11 @@ Can automatically perform:
 
 * Carpet Loot
 
-* Colonial Recommendations, To discover Archon's full potential, you MUST follow his advise and expand your base SMARTLY.
+* Colonial Recommendations, To discover Archon's full potential, follow Archon's advise and expand your base accordingly.
 
 * Retaliate Avoidance
 
-* Not so Smart Auction (Don't be too greedy, might get destroyed)
+* Auto Auction (Don't be too greedy, might get destroyed)
 
 * ...
 
