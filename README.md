@@ -22,4 +22,8 @@ Can automatically perform:
 
 With Archon, My account surpass 95% player (rank list) in a 2 years old server, in 3 month.
 
+Confession:
+
 This is obviously cheating and is NOT welcomed in game playing, it's already too late by the time I realized that.
+
+Please listen to a people who used to cheat in game: don't cheat in game.
